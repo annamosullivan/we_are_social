@@ -1336,71 +1336,46 @@
         "name": "Total Guitar",
         "description": "Total Guitar"
     },
-    "model": "magazines.magazine",
-    "pk": 1
 },
 {
     "fields": {
-        "magazine": 1,
         "user": [
             "aaronsnig@gmail.com"
         ],
         "subscription_end": "2016-04-04T13:28:51.938Z"
     },
-    "model": "magazines.purchase",
-    "pk": 1
 },
-{
+  {
     "fields": {
-        "magazine": 1,
-        "user": [
-            "aaronsnig@gmail.com"
-        ],
-        "subscription_end": "2016-04-04T13:38:34.251Z"
+      "user": [
+        "aaronsnig@gmail.com"
+      ],
+      "subscription_end": "2016-04-04T13:38:34.251Z"
     },
-    "model": "magazines.purchase",
-    "pk": 2
-},
+  },
 {
     "fields": {
-        "magazine": 1,
         "user": [
             "aaronsnig@gmail.com"
         ],
         "subscription_end": "2016-04-04T13:53:01.888Z"
     },
-    "model": "magazines.purchase",
-    "pk": 3
 },
 {
     "fields": {
-        "magazine": 1,
         "user": [
             "aaronsnig@gmail.com"
         ],
         "subscription_end": "2016-04-04T14:12:30.608Z"
     },
-    "model": "magazines.purchase",
-    "pk": 4
 },
 {
     "fields": {
-        "magazine": 1,
         "user": [
             "aaronsnig@gmail.com"
         ],
         "subscription_end": "2016-04-04T14:28:32.243Z"
     },
-    "model": "magazines.purchase",
-    "pk": 5
-},
-{
-    "fields": {
-        "name": "Stuff",
-        "description": "<p>Stuff and whatnot</p>"
-    },
-    "model": "threads.subject",
-    "pk": 1
 },
 {
     "fields": {
@@ -1409,9 +1384,17 @@
         "name": "ccdsasfdsafa",
         "user": [
             "aaronsnig@gmail.com"
-        ]
+        ],
     },
     "model": "threads.thread",
+    "pk": 1
+},
+{
+    "fields": {
+        "name": "Stuff",
+        "description": "<p>Stuff and whatnot</p>"
+    },
+    "model": "threads.subject",
     "pk": 1
 },
 {
@@ -1572,10 +1555,7 @@
         "user": [
             "aaron@example.com"
         ],
-        "content_type": [
-            "magazines",
-            "magazine"
-        ]
+
     },
     "model": "admin.logentry",
     "pk": 2
