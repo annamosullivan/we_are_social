@@ -10,11 +10,13 @@ from threads import views as forum_views
 from polls import api_views
 from threads import api_views as thread_api_views
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('reusable_blog.urls')),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': MEDIA_ROOT}),
     url(r'^$', views.get_index),
+
 
     # Auth URLs
     url(r'^pages/', include('django.contrib.flatpages.urls')),
