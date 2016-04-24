@@ -26,7 +26,7 @@ SECRET_KEY = '_34saw!bco()q8$4(_5iyik-+nmr+u7jrsfywjq)guc9+j%==c'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-SITE_ID = 2
+SITE_ID = 4
 
 # Application definition
 
@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'products',
     'threads',
     'polls',
+    'contact',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -92,6 +93,10 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, "templates"),
+)
+
 WSGI_APPLICATION = 'we_are_social.wsgi.application'
 
 
@@ -101,7 +106,11 @@ WSGI_APPLICATION = 'we_are_social.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, "sqlite.db"),
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -165,4 +174,11 @@ STRIPE_SECRET = os.getenv('STRIPE_SECRET', 'sk_test_N35jP51CRqW4FKBMa8MAL1A4')
 
 SITE_URL = 'http://127.0.0.1:8000'
 PAYPAL_NOTIFY_URL = 'https://291e2d8f.ngrok.io/a-very-hard-to-guess-url/'
-PAYPAL_RECEIVER_EMAIL = 'aaron@codeinstitute.net'
+PAYPAL_RECEIVER_EMAIL = 'annamarieosullivan76@gmail.com'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'testing@example.com'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+EMAIL_PORT = 1025

@@ -23,11 +23,11 @@
     <div class="masthead">
         <ul class="nav nav-pills pull-right">
             <li><a href="/">Home</a></li>
-            <li><a href="/products/">Products</a></li>
+            <li><a href="/products/">Membership</a></li>
             <li><a href="/forum/">Forum</a></li>
             <li><a href="/pages/about/">About</a></li>
-            <li><a href="/blog/">Our Blog</a></li>
-            <li><a href="/#">Contact us</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact">Contact us</a></li>
             {% if user.is_authenticated %}
                 <li><a href="{% url 'profile' %}">Profile</a></li>
                 <li><a href="{% url 'logout' %}">Log Out</a></li>
@@ -38,8 +38,6 @@
         </ul>
         <h1><span class="fui-settings-16 muted">We Are Social</span></h1>
     </div>
-   <!-- <div id="map"></div>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d630181.3144702133!2d-9.03951355!3d51.903928449999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sie!4v1461007074313" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>-->
     <hr>
 
     {% if messages %}
@@ -68,7 +66,18 @@
     <hr>
 
     <div class="footer">
-        <p>Made By Django </p>
+        <div class="links">
+        <div class="container">
+            <div class="row">
+                <a href="https://twitter.com/twitter" class="twitter-follow-button" data-show-count="false">Follow @twitter</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                <iframe src="http://www.youtube.com/subscribe_widget?p=XYZ" style="overflow: hidden; height: 105px; width: 300px; border: 0;" ></iframe>
+                    <a href="http://www.facebook.com/">Visit our Facebook page</a>
+                    <script src="https://apis.google.com/js/plusone.js"></script>
+                    <g:plus action="share" annotation="bubble"></g:plus>
+            </div>
+        </div>
+    </div>
     </div>
 </div>
 <script src="{% static 'js/polls/app.js' %}"></script>
