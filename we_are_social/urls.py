@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # url(r'^$', views.get_index()),
     url(r'', include('reusable_blog.urls')),
-    url(r'^polls/', include('polls.urls')),
+    url(r'^polls/', include('polls.urls', namespace="polls")),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}),
 
     # Auth URLs
