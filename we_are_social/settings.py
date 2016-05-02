@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django_forms_bootstrap',
+    # 'polls.apps.PollsConfig',
     'paypal.standard.ipn',
     'debug_toolbar',
     'rest_framework',
@@ -50,7 +51,7 @@ INSTALLED_APPS = [
     'home',
     'accounts',
     'paypal_store',
-    'products',
+    'membership',
     'threads',
     'polls',
     'contact',
@@ -94,8 +95,9 @@ TEMPLATES = [
 ]
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, "templates"),
+    os.path.join(BASE_DIR, 'templates'),
 )
+PROJECT_DIR = os.path.dirname(__file__)
 
 WSGI_APPLICATION = 'we_are_social.wsgi.application'
 

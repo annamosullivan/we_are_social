@@ -5,7 +5,7 @@ from home import views
 from contact import views
 from paypal.standard.ipn import urls as paypal_urls
 from paypal_store import views as paypal_views
-from products import views as product_views
+from membership import views as membership_views
 from accounts.views import register, profile, login, logout, cancel_subscription, subscriptions_webhook
 from threads import views as forum_views
 from polls import api_views
@@ -13,9 +13,10 @@ from threads import api_views as thread_api_views
 
 
 urlpatterns = [
+    url(r'^admin/', admin.site.urls),
     # url(r'^$', views.get_index()),
-    url(r'^admin/', include(admin.site.urls)),
     url(r'', include('reusable_blog.urls')),
+    url(r'^polls/', include('polls.urls')),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}),
 
     # Auth URLs
@@ -33,10 +34,16 @@ urlpatterns = [
     url(r'^a-very-hard-to-guess-url/', include(paypal_urls)),
     url(r'^paypal-return/$', paypal_views.paypal_return),
     url(r'^paypal-cancel/$', paypal_views.paypal_cancel),
-    url(r'^products/$', product_views.all_products),
+    url(r'^membership/$', membership_views.all_memberships),
 
     # Blog URLs
     url(r'^blog/', include('reusable_blog.urls')),
+
+    # Polls URLs
+    url(r'^polls/$', 'polls.views.index'),
+    url(r'^polls/(\d+)/$', 'polls.views.detail'),
+    url(r'^polls/(\d+)/results/$', 'polls.views.results'),
+    url(r'^polls/(\d+)/vote/$', 'polls.views.vote'),
 
     # Forum URLs
     url(r'^forum/$', forum_views.forum),
@@ -45,8 +52,8 @@ urlpatterns = [
     url(r'^thread/(?P<thread_id>\d+)/$', forum_views.thread, name='thread'),
     url(r'^post/new/(?P<thread_id>\d+)/$', forum_views.new_post, name='new_post'),
     url(r'^post/edit/(?P<thread_id>\d+)/$', forum_views.edit_post, name='edit_post'),
-    url(r'^post/delete/(?P<thread_id>\d+)/(?P<post_id>\d+)/$',forum_views.delete_post, name='delete_post'),
-    url(r'^thread/vote/(?P<thread_id>\d+)/(?P<subject_id>\d+)/$',forum_views.thread_vote, name='cast_vote'),
+    url(r'^post/delete/(?P<thread_id>\d+)/(?P<post_id>\d+)/$', forum_views.delete_post, name='delete_post'),
+    url(r'^thread/vote/(?P<thread_id>\d+)/(?P<subject_id>\d+)/$', forum_views.thread_vote, name='cast_vote'),
 
     # REST URLs
     url(r'^threads/polls/$', api_views.PollViewSet.as_view()),

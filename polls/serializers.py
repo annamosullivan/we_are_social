@@ -30,8 +30,7 @@ class PollSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Poll
-        fields = ('id', 'question', 'subjects',
-                  'user_has_voted', 'total_votes')
+        fields = ('id', 'question', 'subjects', 'user_has_voted', 'total_votes')
 
     def get_user_has_voted(self, poll):
         has_voted = False

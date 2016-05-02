@@ -4,7 +4,7 @@ from django.conf import settings
 import paypal.standard.forms
 
 
-class Product(models.Model):
+class Membership(models.Model):
 
     name = models.CharField(max_length=254, default='')
     description = models.TextField()
