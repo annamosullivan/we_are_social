@@ -15,7 +15,6 @@ from threads import api_views as thread_api_views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # url(r'^$', views.get_index()),
-    url(r'', include('reusable_blog.urls')),
     url(r'^polls/', include('polls.urls', namespace="polls")),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}),
 
@@ -38,12 +37,6 @@ urlpatterns = [
 
     # Blog URLs
     url(r'^blog/', include('reusable_blog.urls')),
-
-    # Polls URLs
-    url(r'^polls/$', 'polls.views.index'),
-    url(r'^polls/(\d+)/$', 'polls.views.detail'),
-    url(r'^polls/(\d+)/results/$', 'polls.views.results'),
-    url(r'^polls/(\d+)/vote/$', 'polls.views.vote'),
 
     # Forum URLs
     url(r'^forum/$', forum_views.forum),
