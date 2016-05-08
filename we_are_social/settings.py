@@ -31,7 +31,9 @@ SITE_ID = 4
 # Application definition
 
 INSTALLED_APPS = [
+    # 'polls.apps.PollsConfig',
     'django.contrib.admin',
+    'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -40,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django_forms_bootstrap',
-    # 'polls.apps.PollsConfig',
     'paypal.standard.ipn',
     'debug_toolbar',
     'rest_framework',
@@ -94,9 +95,6 @@ TEMPLATES = [
     },
 ]
 
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
-)
 PROJECT_DIR = os.path.dirname(__file__)
 
 WSGI_APPLICATION = 'we_are_social.wsgi.application'

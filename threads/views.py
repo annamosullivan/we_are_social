@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.template.context_processors import csrf
 from django.forms import formset_factory
 from threads.models import Subject, Post, Thread
+from threads.templatetags.threads_extras import register
 from .forms import ThreadForm, PostForm
 from polls.forms import PollSubjectForm, PollForm
 from polls.models import PollSubject
@@ -65,7 +66,7 @@ def new_thread(request, subject_id):
         'post_form': post_form,
         'subject': subject,
         'poll_form': poll_form,
-        'poll_subject_formset': poll_subject_formset
+        'poll_subject_formset': poll_subject_formset,
     }
 
     args.update(csrf(request))
@@ -120,8 +121,7 @@ def edit_post(request, thread_id, post_id):
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
-            messages.success(request,
-                            "You have updated your thread!")
+            messages.success(request, "You have updated your thread!")
 
             return redirect(reverse('thread', args={thread.id}))
     else:
@@ -156,8 +156,7 @@ def thread_vote(request, thread_id, subject_id):
     subject = thread.poll.votes.filter(user=request.user)
 
     if subject:
-        messages.error(request, "You already voted on this!... "
-                                "You're not trying to cheat are you?")
+        messages.error(request, "You already voted on this!... You're not trying to cheat are you?")
         return redirect(reverse('thread', args={thread_id}))
 
     subject = PollSubject.objects.get(id=subject_id)
@@ -166,3 +165,30 @@ def thread_vote(request, thread_id, subject_id):
     messages.success(request, "We've registered your vote!")
 
     return redirect(reverse('thread', args={thread_id}))
+
+
+@register.simple_tag
+def user_vote_button(thread, subject, user):
+    vote = thread.poll.votes.filter(user_id=user.id).first()
+
+    if not vote:
+        if user.is_authenticated():
+            link = """
+            <div class="col-md-3 btn-vote">
+            <a href="%s" class="btn btn-default btn-sm">
+              Add my vote!
+            </a>
+            </div>""" % reverse('cast_vote', kwargs={'thread_id': thread.id, 'subject_id': subject.id})
+
+            return link
+
+    return ""
+
+
+@register.filter
+def vote_percentage(subject):
+    count = subject.votes.count()
+    if count == 0:
+        return 0
+    total_votes = subject.poll.votes.count()
+    return (100 / total_votes) * count

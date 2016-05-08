@@ -2,6 +2,7 @@ import uuid
 from django.db import models
 from django.conf import settings
 import paypal.standard.forms
+from paypal.standard.forms import PayPalPaymentsForm
 
 
 class Membership(models.Model):

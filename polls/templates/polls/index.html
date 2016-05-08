@@ -1,7 +1,15 @@
+{% extends "base.html" %}
+{% load bootstrap_tags %}
+{% load staticfiles %}
+{% block content %}
+{% comment %}
+{% extends "base.html" %}
+{% load bootstrap_tags %}
 {% load staticfiles %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
-{% extends "admin/base_site.html" %}
+
+
 {% load i18n admin_static %}
 
 {% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />{% endblock %}
@@ -47,10 +55,11 @@
         </div>
     {% endfor %}
 {% else %}
-    <p>{% trans "You don't have permission to edit anything." %}</p>
+   <p>{% trans "You don't have permission to edit anything." %}</p>
 {% endif %}
 </div>
 {% endblock %}
+
 
 {% block sidebar %}
 <div id="content-related">
@@ -91,4 +100,15 @@
             {% endif %}
     </div>
 </div>
+{% endblock %}
+{% endcomment %}
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
 {% endblock %}

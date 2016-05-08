@@ -1,8 +1,8 @@
 from django.conf.urls import url, include
 from django.contrib import admin
 from .settings import MEDIA_ROOT
-from home import views
-from contact import views
+from home import views as home_views
+from contact import views as contact_views
 from paypal.standard.ipn import urls as paypal_urls
 from paypal_store import views as paypal_views
 from membership import views as membership_views
@@ -14,7 +14,7 @@ from threads import api_views as thread_api_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    # url(r'^$', views.get_index()),
+    url(r'^$', home_views.get_index),
     url(r'^polls/', include('polls.urls', namespace="polls")),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}),
 
@@ -56,5 +56,5 @@ urlpatterns = [
     url(r'post/delete/(?P<pk>[\d]+)/$', thread_api_views.PostDeleteView.as_view(), name='delete-poll'),
 
     # Contact URL
-    url(r'^contact$', views.contact, name='contact'),
+    url(r'^contact$', contact_views.contact, name='contact'),
 ]

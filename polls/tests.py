@@ -1,4 +1,5 @@
 import datetime
+from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.test import TestCase
@@ -45,6 +46,7 @@ class QuestionMethodTests(TestCase):
         return Question.objects.create(question_text=question_text, pub_date=time)
 
 class QuestionViewTests(TestCase):
+
     def test_index_view_with_no_questions(self):
         """
         If no questions exist, an appropriate message should be displayed.
@@ -61,10 +63,7 @@ class QuestionViewTests(TestCase):
         """
         create_question(question_text="Past question.", days=-30)
         response = self.client.get(reverse('polls:index'))
-        self.assertQuerysetEqual(
-            response.context['latest_question_list'],
-            ['<Question: Past question.>']
-        )
+        self.assertQuerysetEqual(response.context['latest_question_list'], ['<Question: Past question.>'])
 
     def test_index_view_with_a_future_question(self):
         """
@@ -84,10 +83,7 @@ class QuestionViewTests(TestCase):
         create_question(question_text="Past question.", days=-30)
         create_question(question_text="Future question.", days=30)
         response = self.client.get(reverse('polls:index'))
-        self.assertQuerysetEqual(
-            response.context['latest_question_list'],
-            ['<Question: Past question.>']
-        )
+        self.assertQuerysetEqual(response.context['latest_question_list'], ['<Question: Past question.>'])
 
     def test_index_view_with_two_past_questions(self):
         """
@@ -96,12 +92,10 @@ class QuestionViewTests(TestCase):
         create_question(question_text="Past question 1.", days=-30)
         create_question(question_text="Past question 2.", days=-5)
         response = self.client.get(reverse('polls:index'))
-        self.assertQuerysetEqual(
-            response.context['latest_question_list'],
-            ['<Question: Past question 2.>', '<Question: Past question 1.>']
-        )
+        self.assertQuerysetEqual(response.context['latest_question_list'], ['<Question: Past question 2.>', '<Question: Past question 1.>'])
 
 class QuestionIndexDetailTests(TestCase):
+
     def test_detail_view_with_a_future_question(self):
         """
         The detail view of a question with a pub_date in the future should

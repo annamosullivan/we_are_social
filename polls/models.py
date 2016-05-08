@@ -1,13 +1,16 @@
 import datetime
+from django.contrib import admin
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
 from threads.models import Thread
+from django.utils.encoding import python_2_unicode_compatible
 
 
 class Poll(models.Model):
 
     question = models.TextField()
+    pub_date = models.DateTimeField()
     thread = models.OneToOneField(Thread, null=True)
 
     def __unicode__(self):
