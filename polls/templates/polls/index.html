@@ -2,7 +2,21 @@
 {% load bootstrap_tags %}
 {% load staticfiles %}
 {% block content %}
-{% comment %}
+    <link rel="stylesheet" type="text/javascript" href="{% static '/static/js/graph.js' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+    {% load i18n admin_static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />{% endblock %}
+
+{% block coltype %}{% endblock %}
+
+{% block bodyclass %}{{ block.super }} {% endblock %}
+
+{% block breadcrumbs %}
+{% endblock %}
+
+
+    {% comment %}
 {% extends "base.html" %}
 {% load bootstrap_tags %}
 {% load staticfiles %}
@@ -105,7 +119,7 @@
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
-        <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

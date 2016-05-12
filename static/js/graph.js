@@ -1,5 +1,5 @@
 queue()
-  .defer(d3.json, "/donorsUSA/projects")
+  .defer(d3.json, "https://schooldonations.herokuapp.com/donorsUSA/projects")
   .await(makeGraphs);
 
 
