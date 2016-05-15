@@ -5,7 +5,7 @@ from home import views as home_views
 from contact import views as contact_views
 from paypal.standard.ipn import urls as paypal_urls
 from paypal_store import views as paypal_views
-from membership import views as membership_views
+from memberships import views as membership_views
 from accounts.views import register, profile, login, logout, cancel_subscription, subscriptions_webhook
 from threads import views as forum_views
 from polls import api_views
@@ -33,7 +33,7 @@ urlpatterns = [
     url(r'^a-very-hard-to-guess-url/', include(paypal_urls)),
     url(r'^paypal-return/$', paypal_views.paypal_return),
     url(r'^paypal-cancel/$', paypal_views.paypal_cancel),
-    url(r'^membership/$', membership_views.all_memberships),
+    url(r'^memberships/$', membership_views.all_memberships),
 
     # Blog URLs
     url(r'^blog/', include('reusable_blog.urls')),

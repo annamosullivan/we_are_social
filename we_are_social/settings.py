@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'home',
     'accounts',
     'paypal_store',
-    'membership',
+    'memberships',
     'threads',
     'polls',
     'contact',
