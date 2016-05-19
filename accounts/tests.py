@@ -93,3 +93,65 @@ class CustomUserTest(TestCase):
                                  "Passwords do not match",
                                  form.full_clean())
 
+    def test_registration_fails_with_empty_credit_card(self):
+        form = UserRegistrationForm({
+            'email': 'test@test.com',
+            'password1': 'letmein1',
+            'stripe_id': settings.STRIPE_SECRET,
+            'credit_card_number': 4242424242424242,
+            'cvv': 123,
+            'expiry_month': 1,
+            'expiry_year': 2033
+        })
+        self.assertFalse(form.is_valid())
+        self.assertRaisesMessage(forms.ValidationError,
+                                 "Credit card number not entered.Please enter a valid card number in format xxxxxxxxxxxxxx1234.",
+                                 form.full_clean())
+
+    def test_registration_form_fails_with_credit_cards_that_dont_match(self):
+        form = UserRegistrationForm({
+            'email': 'test@test.com',
+            'password1': 'letmein1',
+            'password2': 'letmein3',
+            'stripe_id': settings.STRIPE_SECRET,
+            'credit_card_number': 4242424242424242,
+            'cvv': 123,
+            'expiry_month': 1,
+            'expiry_year': 2033
+        })
+        self.assertFalse(form.is_valid())
+        self.assertRaisesMessage(forms.ValidationError,
+                                 "Invalid credit card no.Please enter again",
+                                 form.full_clean())
+
+    def test_registration_fails_with_empty_cvv(self):
+        form = UserRegistrationForm({
+            'email': 'test@test.com',
+            'password1': 'letmein1',
+            'stripe_id': settings.STRIPE_SECRET,
+            'credit_card_number': 4242424242424242,
+            'cvv': 123,
+            'expiry_month': 1,
+            'expiry_year': 2033
+        })
+        self.assertFalse(form.is_valid())
+        self.assertRaisesMessage(forms.ValidationError,
+                                 "CVV not entered.Please enter a CVV.",
+                                 form.full_clean())
+
+    def test_registration_form_fails_with_cvv_that_dont_match(self):
+        form = UserRegistrationForm({
+            'email': 'test@test.com',
+            'password1': 'letmein1',
+            'password2': 'letmein3',
+            'stripe_id': settings.STRIPE_SECRET,
+            'credit_card_number': 4242424242424242,
+            'cvv': 123,
+            'expiry_month': 1,
+            'expiry_year': 2033
+        })
+        self.assertFalse(form.is_valid())
+        self.assertRaisesMessage(forms.ValidationError,
+                                 "Invalid CVV no.Please enter a CVV in format xxx.",
+                                 form.full_clean())
+

@@ -13,12 +13,12 @@
             </tr>
         </thead>
         <tbody>
-            {% for product in products %}
+            {% for membership in memberships %}
                 <tr>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.description }}</td>
-                    <td>${{ product.price }}</td>
-                    <td>{{ product.paypal_form.sandbox }}</td>
+                    <td>{{ membership.name }}</td>
+                    <td>{{ membership.description }}</td>
+                    <td>${{ membership.price }}</td>
+                    <td>{{ membership.paypal_form.sandbox }}</td>
                 </tr>
             {% endfor %}
         </tbody>
