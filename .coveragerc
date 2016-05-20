@@ -1,0 +1,6 @@
+[run]
+source = accounts, contact, home, memberships, paypal_store, polls, threads, we_are_social
+branch = True
+omit = *tests*
+    */migrations/*
+
