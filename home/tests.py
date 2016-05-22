@@ -3,7 +3,38 @@ from home.views import get_index
 from django.core.urlresolvers import resolve
 from django.shortcuts import render_to_response
 from accounts.models import User
+import unittest
+from django.test import Client
+from . import views
+from apps import HomeConfig
+from django.contrib.auth.models import AnonymousUser, User
+from django.test import TestCase, RequestFactory
 
+
+class SimpleTest(TestCase):
+    def setUp(self):
+        # Every test needs access to the request factory.
+        self.factory = RequestFactory()
+        self.user = User.objects.create_user(
+            username='None', email='none@none.com', password='letmein1')
+
+    def test_details(self):
+        # Create an instance of a GET request.
+        request = self.factory.get('/accounts/login')
+
+        # Recall that middleware are not supported. You can simulate a
+        # logged-in user by setting request.user manually.
+        request.user = self.user
+
+        # Or you can simulate an anonymous user by setting request.user to
+        # an AnonymousUser instance.
+        request.user = AnonymousUser()
+
+        # Test my_view() as if it were deployed at /customer/details
+        response = views(request)
+        # Use this syntax for class-based views.
+        response = views.as_view()(request)
+        self.assertEqual(response.status_code, 200)
 
 class HomePageTest(TestCase):
 
@@ -13,8 +44,7 @@ class HomePageTest(TestCase):
         self.user = User.objects.create(username='testuser')
         self.user.set_password('letmein')
         self.user.save()
-        self.login = self.client.login(username='testuser',
-                                       password='letmein')
+        self.login = self.client.login(username='testuser', password='letmein')
         self.assertEqual(self.login, True)
 
     def test_home_page(self):
