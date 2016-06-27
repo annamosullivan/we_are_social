@@ -9,6 +9,8 @@ from django.test import Client
 from . import views
 from django.contrib.auth.models import AnonymousUser, User
 from django.test import TestCase, RequestFactory
+from django.core.urlresolvers import reverse
+from mock import patch, MagicMock
 
 
 class SimpleTest(TestCase):
@@ -20,10 +22,10 @@ class SimpleTest(TestCase):
 
     def test_details(self):
         # Create an instance of a GET request.
-        request = self.factory.get('/accounts/login')
+        request = self.factory.get('/contact/contact')
 
         # Create an instance of a POST request.
-        request = self.factory.post('/accounts/login')
+        request = self.factory.post('/contact/thanks', data={'username': 'None', 'email': 'none@none.com', 'password': 'letmein1'})
 
         # Recall that middleware are not supported. You can simulate a
         # logged-in user by setting request.user manually.

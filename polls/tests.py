@@ -1,15 +1,13 @@
 import datetime
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-from django.test import TestCase
-from .models import Question
+from .models import Question, Poll, PollSubject, Vote,Choice
 import unittest
-from django.test import Client
 from . import views
 from admin import ChoiceInline, QuestionAdmin
 from views import IndexView, DetailView, ResultsView
 from django.contrib.auth.models import AnonymousUser, User
-from django.test import TestCase, RequestFactory
+from django.test import TestCase, RequestFactory, Client
 
 
 class SimpleTest(TestCase):
@@ -37,8 +35,6 @@ class SimpleTest(TestCase):
         response = views.as_view()(request)
         self.assertEqual(response.status_code, 200)
 
-
-
 def create_question(question_text, days):
         """
         Creates a question with the given `question_text` and published the
@@ -47,6 +43,7 @@ def create_question(question_text, days):
         """
         time = timezone.now() + datetime.timedelta(days=days)
         return Question.objects.create(question_text=question_text, pub_date=time)
+
 
 class QuestionMethodTests(TestCase):
 
@@ -76,6 +73,7 @@ class QuestionMethodTests(TestCase):
         time = timezone.now() - datetime.timedelta(hours=1)
         recent_question = Question(pub_date=time)
         self.assertEqual(recent_question.was_published_recently(), True)
+
 
 class QuestionViewTests(TestCase):
 
@@ -126,6 +124,7 @@ class QuestionViewTests(TestCase):
         response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(response.context['latest_question_list'],['<Question: Past question 2.>','<Question: Past question 1.>'])
 
+
 class QuestionIndexDetailTests(TestCase):
 
     def test_detail_view_with_a_future_question(self):
@@ -146,14 +145,39 @@ class QuestionIndexDetailTests(TestCase):
         response = self.client.get(reverse('polls:detail', args=(past_question.id,)))
         self.assertContains(response, past_question.question_text, status_code=200)
 
+
 class QuestionResultsDetailTests(TestCase):
 
-    def test_detail_view_with_nothing_selected(self):
+    def test_detail_view_with_nothing_selected(self, question=None):
         """
         The detail view of a question with a choice
         not selected should return a 404 not found
         """
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
-        response = self.client.get(reverse('polls:detail', args=(selected_choice.id)))
+        response = self.client.get(reverse('polls:detail', args=selected_choice.id))
+        self.assertEqual(response.status_code, 404)
+
+
+class PollTest(TestCase):
+
+    def test_ajax_vote(self):
+
+        c = Client()
+
+        # Extra parameters to make this a Ajax style request.
+        kwargs = {'HTTP_X_REQUESTED_WITH':'XMLHttpRequest'}
+
+        # A valid vote
+        response = c.post('/polls/1/vote/', {'choice': '1',}, **kwargs)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, '1')
+
+        # A invalid vote - choice doesn't exist
+        response = c.post('/polls/1/vote/', {'choice': '10',}, **kwargs)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, '0')
+
+        # An invalid vote - poll doesn't exist
+        response = c.post('/polls/2/vote/', {'choice': '1',}, **kwargs)
         self.assertEqual(response.status_code, 404)
 

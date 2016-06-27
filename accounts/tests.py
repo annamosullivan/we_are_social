@@ -5,6 +5,8 @@ from .apps import AccountsConfig
 from django import forms
 from django.conf import settings
 from django.test import TestCase
+from home.views import get_index
+from django.shortcuts import render_to_response
 import unittest
 from django.test import Client
 from . import views
@@ -12,16 +14,27 @@ from django.contrib.auth.models import AnonymousUser, User
 from django.test import TestCase, RequestFactory
 
 
+def test_home_page_status_code_is_ok(self):
+    home_page = self.client.get('/')
+    self.assertEquals(home_page.status_code, 200)
+
+
+def test_check_content_is_correct(self):
+        home_page = self.client.get('/')
+        self.assertTemplateUsed(home_page, "register.html")
+        home_page_template_output = render_to_response("register.html").content
+        self.assertEquals(home_page.content, home_page_template_output)
+
+
 class SimpleTest(TestCase):
     def setUp(self):
         # Every test needs access to the request factory.
         self.factory = RequestFactory()
-        self.user = User.objects.create_user(
-            username='None', email='none@none.com', password='letmein1')
+        self.user = User.objects.create_user(username='None', email='none@none.com', password='letmein1')
 
     def test_details(self):
         # Create an instance of a GET request.
-        request = self.factory.get('/accounts/login')
+        request = self.factory.get('/customer/details')
 
         # Recall that middleware are not supported. You can simulate a
         # logged-in user by setting request.user manually.
@@ -31,11 +44,6 @@ class SimpleTest(TestCase):
         # an AnonymousUser instance.
         request.user = AnonymousUser()
 
-        # Test my_view() as if it were deployed at /customer/details
-        response = views(request)
-        # Use this syntax for class-based views.
-        response = views.as_view()(request)
-        self.assertEqual(response.status_code, 200)
 
 class CustomUserTest(TestCase):
 
@@ -45,6 +53,12 @@ class CustomUserTest(TestCase):
 
         with self.assertRaises(ValueError):
             user = User.objects._create_user(None, None, "password", False, False)
+
+        user = User.objects._create_purchase(None)
+        self.assertIsNotNone(self)
+
+        with self.assertRaises(ValueError):
+            User.objects._create_purchase(None, None, False, False)
 
     def test_registration_form(self):
         form = UserRegistrationForm({
@@ -169,4 +183,11 @@ class CustomUserTest(TestCase):
         self.assertRaisesMessage(forms.ValidationError, "Invalid CVV no.Please enter a CVV in format xxx.",form.full_clean())
 
 
+class UserPageTest(TestCase):
 
+
+    def test_check_content_is_correct(self):
+        subject_page = self.client.get('/login/')
+        self.assertTemplateUsed(subject_page, "templates/login.html")
+        subject_page_template_output = render_to_response("forum/forum.html", subject.objects.all().content)
+        self.assertEquals(subject_page.content, subject_page_template_output)

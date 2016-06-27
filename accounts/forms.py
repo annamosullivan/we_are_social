@@ -60,6 +60,7 @@ class UserLoginForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
 
+
 # our new form
 class ContactForm(forms.Form):
     contact_name = forms.CharField(required=True)
