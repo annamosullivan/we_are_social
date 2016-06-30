@@ -1,4 +1,4 @@
-from .models import User, AccountUserManager
+from .models import User
 from .forms import UserRegistrationForm
 from .backends import EmailAuth
 from .apps import AccountsConfig
@@ -10,7 +10,7 @@ from django.shortcuts import render_to_response
 import unittest
 from django.test import Client
 from . import views
-from django.contrib.auth.models import AnonymousUser, User
+from django.contrib.auth.models import AnonymousUser
 from django.test import TestCase, RequestFactory
 
 
@@ -53,12 +53,6 @@ class CustomUserTest(TestCase):
 
         with self.assertRaises(ValueError):
             user = User.objects._create_user(None, None, "password", False, False)
-
-        user = User.objects._create_purchase(None)
-        self.assertIsNotNone(self)
-
-        with self.assertRaises(ValueError):
-            User.objects._create_purchase(None, None, False, False)
 
     def test_registration_form(self):
         form = UserRegistrationForm({
@@ -183,11 +177,21 @@ class CustomUserTest(TestCase):
         self.assertRaisesMessage(forms.ValidationError, "Invalid CVV no.Please enter a CVV in format xxx.",form.full_clean())
 
 
-class UserPageTest(TestCase):
+class TestBackends(TestCase):
+    def test_authenticate_invalid(self):
+        email_auth = EmailAuth()
+        user = email_auth.authenticate()
+        self.assertIsNone(user)
+
+    def test_authenticate_valid(self):
+        email = "test@test.com"
+        password = "password"
+        new_user = User.objects._create_user(None, email, password, False, False)
+        email_auth = EmailAuth()
+        user = email_auth.authenticate(email, password)
+        self.assertEquals(new_user, user)
 
 
-    def test_check_content_is_correct(self):
-        subject_page = self.client.get('/login/')
-        self.assertTemplateUsed(subject_page, "templates/login.html")
-        subject_page_template_output = render_to_response("forum/forum.html", subject.objects.all().content)
-        self.assertEquals(subject_page.content, subject_page_template_output)
+
+
+
