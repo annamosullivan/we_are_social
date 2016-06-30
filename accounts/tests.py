@@ -191,6 +191,14 @@ class TestBackends(TestCase):
         user = email_auth.authenticate(email, password)
         self.assertEquals(new_user, user)
 
+    def test_active_user(self):
+        # email = "test@test.com"
+        # password = "password"
+        # user_id = User.objects._create_user(None, email, password, False, False)
+        email_auth = EmailAuth()
+        user_id = email_auth.authenticate()
+        self.assertIsNone(user_id)
+
 
 
 
