@@ -1,16 +1,11 @@
-from django.test import TestCase
-from django.db import models
-from .forms import ContactForm
-from .models import Feedback
 from django import forms
-from django.conf import settings
-import unittest
-from django.test import Client
-from . import views
 from django.contrib.auth.models import AnonymousUser, User
 from django.test import TestCase, RequestFactory
-from django.core.urlresolvers import reverse
-from mock import patch, MagicMock
+from . import views
+from .forms import ContactForm
+from django.test import TestCase
+from django.core.urlresolvers import resolve
+from django.shortcuts import render_to_response
 
 
 class SimpleTest(TestCase):
@@ -124,4 +119,26 @@ class CustomContactTest(TestCase):
         self.assertRaisesMessage(forms.ValidationError,
                                  "Invalid e-mail.Please enter in format joe@bloggs.com",
                                  form.full_clean())
+
+
+def test_home_page_status_code_is_ok(self):
+    home_page = self.client.get('/')
+    self.assertEquals(home_page.status_code, 200)
+
+
+def test_check_thanks_is_correct(self):
+        thanks_page = self.client.get('/')
+        self.assertTemplateUsed(thanks_page, "thanks.html")
+        thanks_page_template_output = render_to_response("thanks.html").content
+        self.assertEquals(thanks_page.content, thanks_page_template_output)
+
+
+def test_check_contact_is_correct(self):
+        contact_page = self.client.get('/')
+        self.assertTemplateUsed(contact_page, "contact.html")
+        contact_page_template_output = render_to_response("contact.html").content
+        self.assertEquals(contact_page.content, contact_page_template_output)
+
+
+
 
