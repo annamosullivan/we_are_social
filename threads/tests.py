@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from .models import Subject, Thread, Post
 import difflib
 import unittest
+from unittest import TestCase
 from django.test import Client
 from . import views
 from .api_views import PostUpdateView, PostDeleteView
@@ -39,10 +40,12 @@ class SimpleTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-
 class SubjectPageTest(TestCase):
 
     fixtures = ['subjects']
+    def test_home_page_status_code_is_ok(self):
+        home_page = self.client.get('/')
+        self.assertEquals(home_page.status_code, 200)
 
     def test_check_content_is_correct(self):
         subject_page = self.client.get('/forum/')
@@ -51,4 +54,25 @@ class SubjectPageTest(TestCase):
                                                           {'subjects':
         Subject.objects.all()}).content
         self.assertEquals(subject_page.content, subject_page_template_output)
+
+
+class Threads(object):
+    pass
+
+
+class ThreadPageTest(TestCase):
+
+    def test_home_page_status_code_is_ok(self):
+        home_page = self.client.get('/')
+        self.assertEquals(home_page.status_code, 200)
+
+    def test_check_content_is_correct(self):
+        threads_page = self.client.get('/forum/')
+        self.assertTemplateUsed(threads_page, "forum/threads.html")
+        threads_page_template_output = render_to_response("forum/forum.html",
+                                                          {'threads':
+        Threads.objects.all()}).content
+        self.assertEquals(threads_page.content, threads_page_template_output)
+
+
 

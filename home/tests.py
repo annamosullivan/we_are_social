@@ -1,14 +1,12 @@
-from django.test import TestCase
-from home.views import get_index
-from django.core.urlresolvers import resolve
-from django.shortcuts import render_to_response
-from accounts.models import User
-import unittest
-from django.test import Client
-from . import views
-from apps import HomeConfig
 from django.contrib.auth.models import AnonymousUser, User
+from django.core.urlresolvers import resolve
+from django.db import models
+from django.shortcuts import render_to_response
 from django.test import TestCase, RequestFactory
+from home.views import get_index
+from . import views
+import unittest
+from unittest import TestCase
 
 
 class SimpleTest(TestCase):
@@ -36,6 +34,7 @@ class SimpleTest(TestCase):
         response = views.as_view()(request)
         self.assertEqual(response.status_code, 200)
 
+
 class HomePageTest(TestCase):
 
     def setUp(self):
@@ -51,12 +50,23 @@ class HomePageTest(TestCase):
         home_page = resolve('/')
         self.assertEqual(home_page.func, get_index)
 
+    def test_home_page_status_code_is_ok(self):
+        home_page = self.client.get('/')
+        self.assertEquals(home_page.status_code, 200)
+
     def test_check_content_is_correct(self):
         home_page = self.client.get('/')
         self.assertTemplateUsed(home_page, "index.html")
         home_page_template_output = render_to_response("index.html", {'user': self.user}).content
         self.assertEquals(home_page.content, home_page_template_output)
 
-    def test_home_page_status_code_is_ok(self):
-        home_page = self.client.get('/')
-        self.assertEquals(home_page.status_code, 200)
+
+class TestHomeConfig(unittest.TestCase):
+    def test_home_config(self):
+        self.failUnless('home')
+
+    def main(self):
+        unittest.main()
+
+    if __name__ == '__main__':
+        main()

@@ -1,8 +1,9 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from models import Poll, Vote, PollSubject
-from serializers import PollSerializer, VoteSerializer
-from threads.models import Thread
+from serializers import PollSerializer, VoteSerializer, PollSubjectSerializer
+from threads.models import Thread, Post, Subject
 
 
 class PollViewSet(generics.ListAPIView):
@@ -27,8 +28,7 @@ class VoteCreateView(generics.ListCreateAPIView):
         subject = thread.poll.votes.filter(user=request.user).first()
 
         if subject:
-            return Response({"error": "Already voted!"},
-                            status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Already voted!"}, status=status.HTTP_400_BAD_REQUEST)
 
         request.data['user'] = request.user.id
         serializer = VoteSerializer(data=request.data)
@@ -39,7 +39,6 @@ class VoteCreateView(generics.ListCreateAPIView):
 
             headers = self.get_success_headers(serializer.data)
 
-            return Response(serializer.data, status=status.HTTP_201_CREATED,
-                            headers=headers)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

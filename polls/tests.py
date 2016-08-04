@@ -1,21 +1,22 @@
 import datetime
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-from .models import Question, Poll, PollSubject, Vote,Choice
+from .models import Poll, PollSubject, Vote, Question, Choice
 import unittest
 from . import views
 from admin import ChoiceInline, QuestionAdmin
 from views import IndexView, DetailView, ResultsView
+from api_views import PollViewSet, PollInstanceView, VoteCreateView
 from django.contrib.auth.models import AnonymousUser, User
 from django.test import TestCase, RequestFactory, Client
+from django.core import serializers
 
 
 class SimpleTest(TestCase):
     def setUp(self):
         # Every test needs access to the request factory.
         self.factory = RequestFactory()
-        self.user = User.objects.create_user(
-            username='None', email='none@none.com', password='letmein1')
+        self.user = User.objects.create_user(username='None', email='none@none.com', password='letmein1')
 
     def test_details(self):
         # Create an instance of a GET request.
@@ -148,7 +149,7 @@ class QuestionIndexDetailTests(TestCase):
 
 class QuestionResultsDetailTests(TestCase):
 
-    def test_detail_view_with_nothing_selected(self, question=None):
+    def test_detail_view_with_nothing_selected(self, question=None, request=None):
         """
         The detail view of a question with a choice
         not selected should return a 404 not found
@@ -174,10 +175,28 @@ class PollTest(TestCase):
 
         # A invalid vote - choice doesn't exist
         response = c.post('/polls/1/vote/', {'choice': '10',}, **kwargs)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 404)
         self.assertEqual(response.content, '0')
 
         # An invalid vote - poll doesn't exist
         response = c.post('/polls/2/vote/', {'choice': '1',}, **kwargs)
         self.assertEqual(response.status_code, 404)
 
+
+class ApiViewsSerializerTest (TestCase):
+    def test_serializer(self):
+        # Stuff to serialize
+        Vote(name='yes').save()
+        Vote(name='no').save()
+
+        # Expected output
+        expect_api = \
+            'myapi.vote:\n' \
+            '  1: {name: yes}\n' \
+            '  2: {name: no}\n'
+
+        # Do the serialization
+        actual_vote = serializers.serialize('vote', Vote.objects.all())
+
+        # Did it work?
+        self.assertEqual(actual_vote)

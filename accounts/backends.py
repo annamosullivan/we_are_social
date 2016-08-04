@@ -1,4 +1,5 @@
 from models import User
+import unittest
 
 
 class EmailAuth(object):

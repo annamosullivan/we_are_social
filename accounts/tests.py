@@ -8,8 +8,10 @@ from django.test import TestCase
 from home.views import get_index
 from django.shortcuts import render_to_response
 import unittest
+import sys
 from django.test import Client
 from . import views
+from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import AnonymousUser
 from django.test import TestCase, RequestFactory
 
@@ -191,13 +193,28 @@ class TestBackends(TestCase):
         user = email_auth.authenticate(email, password)
         self.assertEquals(new_user, user)
 
-    def test_active_user(self):
-        # email = "test@test.com"
-        # password = "password"
-        # user_id = User.objects._create_user(None, email, password, False, False)
-        email_auth = EmailAuth()
-        user_id = email_auth.authenticate()
-        self.assertIsNone(user_id)
+    def authenticate(self, username=None, password=None):
+        login_valid = (settings.ADMIN_LOGIN == username)
+        pwd_valid = check_password(password, settings.ADMIN_PASSWORD)
+        if login_valid and pwd_valid:
+            try:
+                user = User.objects.get(username=username)
+            except User.DoesNotExist:
+                # Create a new user. Note that we can set password
+                # to anything, because it won't be checked; the password
+                # from settings.py will.
+                user = User(username=username, password='get from settings.py')
+                user.is_staff = True
+                user.is_superuser = True
+                user.save()
+            return user
+        return None
+
+    def get_user(self, user_id):
+        try:
+            return User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return None
 
 
 
