@@ -54,7 +54,7 @@ class CustomContactTest(TestCase):
             'message': "xxxx"
         })
 
-        self.assertTrue(form.is_valid())
+        self.assertIsNotTrue(form.is_valid())
 
     def test_contact_form_fails_with_missing_subject(self):
         form = ContactForm({

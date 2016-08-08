@@ -1,19 +1,22 @@
-from .models import User
-from .forms import UserRegistrationForm
-from .backends import EmailAuth
-from .apps import AccountsConfig
 from django import forms
 from django.conf import settings
-from django.test import TestCase
-from home.views import get_index
-from django.shortcuts import render_to_response
-import unittest
-import sys
-from django.test import Client
-from . import views
+from django.contrib import messages, auth
+from django.core.urlresolvers import reverse
+from django.shortcuts import render_to_response, render, redirect
+from django.template.context_processors import csrf
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import AnonymousUser
+from django.shortcuts import render_to_response
+import django.test
 from django.test import TestCase, RequestFactory
+from django.test import Client
+from .backends import EmailAuth
+from .forms import UserRegistrationForm
+from .models import User
+from .apps import AccountsConfig
+from . import views
+from accounts.views import register,cancel_subscription, subscriptions_webhook, profile, login, logout
+import unittest
 
 
 def test_home_page_status_code_is_ok(self):
@@ -21,22 +24,37 @@ def test_home_page_status_code_is_ok(self):
     self.assertEquals(home_page.status_code, 200)
 
 
-def test_check_content_is_correct(self):
-        home_page = self.client.get('/')
-        self.assertTemplateUsed(home_page, "register.html")
-        home_page_template_output = render_to_response("register.html").content
-        self.assertEquals(home_page.content, home_page_template_output)
+def test_check_register_is_correct(self):
+        register_page = self.client.get('/')
+        self.assertTemplateUsed(register_page, "register.html")
+        register_page_template_output = render_to_response("register.html").content
+        self.assertEquals(register_page.content, register_page_template_output)
+
+
+def test_check_profile_is_correct(self):
+        profile_page = self.client.get('/')
+        self.assertTemplateUsed(profile_page, "profile.html")
+        profile_page_template_output = render_to_response("profile.html").content
+        self.assertEquals(profile_page.content, profile_page_template_output)
+
+
+def test_logout_goes_to_index(self):
+        index_page = self.client.get('/')
+        self.assertTemplateUsed(index_page, "index.html")
+        index_page_template_output = render_to_response("index.html").content
+        self.assertEquals(index_page.content, index_page_template_output)
 
 
 class SimpleTest(TestCase):
     def setUp(self):
         # Every test needs access to the request factory.
+        self.client = Client()
         self.factory = RequestFactory()
         self.user = User.objects.create_user(username='None', email='none@none.com', password='letmein1')
 
     def test_details(self):
         # Create an instance of a GET request.
-        request = self.factory.get('/customer/details')
+        request = self.factory.get('/templates/profile')
 
         # Recall that middleware are not supported. You can simulate a
         # logged-in user by setting request.user manually.
@@ -217,6 +235,14 @@ class TestBackends(TestCase):
             return None
 
 
+class ExamplePostTest(TestCase):
+    @classmethod
+    def setUpTestData(self):
+        self.client = Client()
 
+
+    def test_addAccount(self):
+        response = self.client.post('/',username='None', email='none@none.com', password='letmein1')
+        self.assertEqual(response.status_code, 200)
 
 

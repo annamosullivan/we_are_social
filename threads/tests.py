@@ -68,9 +68,9 @@ class ThreadPageTest(TestCase):
 
     def test_check_content_is_correct(self):
         threads_page = self.client.get('/forum/')
-        self.assertTemplateUsed(threads_page, "forum/threads.html")
+        self.assertTemplateUsed(threads_page, "forum/thread.html")
         threads_page_template_output = render_to_response("forum/forum.html",
-                                                          {'threads':
+                                                          {'thread':
         Threads.objects.all()}).content
         self.assertEquals(threads_page.content, threads_page_template_output)
 
