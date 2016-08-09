@@ -1,17 +1,21 @@
-from django.test import TestCase
-from django.shortcuts import render_to_response
-from .models import Subject, Thread, Post
+#from django.test import TestCase
+import self as self
+from django.shortcuts import render_to_response, render
+from django.core.urlresolvers import reverse
 import difflib
+import sys
 import unittest
 from unittest import TestCase
-from django.test import Client
 from . import views
-from .api_views import PostUpdateView, PostDeleteView
-from .forms import ThreadForm, PostForm
-from .serializers import PostSerializer
+from views import forum, threads, new_thread, thread, new_post, edit_post, delete_post, thread_vote, user_vote_button, vote_percentage
+from api_views import PostUpdateView, PostDeleteView
+from forms import ThreadForm, PostForm
+from serializers import PostSerializer
+from models import Subject, Thread, Post
 from django.contrib.auth.models import AnonymousUser, User
-from django.test import TestCase, RequestFactory
+from django.test import TestCase, RequestFactory, Client
 from django.utils import timezone
+from templatetags.threads_extras import get_total_subject_posts, started_time, last_posted_user_name, user_vote_button, vote_percentage
 
 
 class SimpleTest(TestCase):
@@ -23,7 +27,7 @@ class SimpleTest(TestCase):
 
     def test_details(self):
         # Create an instance of a GET request.
-        request = self.factory.get('/accounts/login')
+        request = self.factory.post(self, '/templates/login', data=None)
 
         # Recall that middleware are not supported. You can simulate a
         # logged-in user by setting request.user manually.
@@ -73,6 +77,8 @@ class ThreadPageTest(TestCase):
                                                           {'thread':
         Threads.objects.all()}).content
         self.assertEquals(threads_page.content, threads_page_template_output)
+
+
 
 
 

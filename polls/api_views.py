@@ -4,6 +4,8 @@ from rest_framework.decorators import api_view
 from models import Poll, Vote, PollSubject
 from serializers import PollSerializer, VoteSerializer, PollSubjectSerializer
 from threads.models import Thread, Post, Subject
+import unittest
+from unittest import TestCase
 
 
 class PollViewSet(generics.ListAPIView):

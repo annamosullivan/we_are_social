@@ -3,12 +3,13 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
-
 from .models import Choice, Question
+import unittest
+from unittest import TestCase
 
 
 def redirect_to_polls(request):
-    return HttpResponseRedirect('/polls/')
+    return HttpResponseRedirect('/polls/templates/polls')
 
 
 class IndexView(generic.ListView):

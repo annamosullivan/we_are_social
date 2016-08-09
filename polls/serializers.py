@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Vote, PollSubject, Poll
+import unittest
+from unittest import TestCase
 
 
 class VoteSerializer(serializers.ModelSerializer):

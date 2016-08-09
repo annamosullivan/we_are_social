@@ -2,15 +2,14 @@ from django.db import models
 from django.utils import timezone
 from tinymce.models import HTMLField
 from django.conf import settings
+import unittest
+from unittest import TestCase
 
 
 class Subject(models.Model):
 
     name = models.CharField(max_length=255)
     description = HTMLField()
-
-    def __unicode__(self):
-        return self.name
 
 
 class Thread(models.Model):

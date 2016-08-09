@@ -1,11 +1,16 @@
 from django import forms
+import sys
 from django.contrib.auth.models import AnonymousUser, User
 from django.test import TestCase, RequestFactory
 from . import views
+from .views import thanks, contact
 from .forms import ContactForm
-from django.test import TestCase
-from django.core.urlresolvers import resolve
+from .models import Feedback
+#from django.test import TestCase
+from django.core.urlresolvers import resolve, reverse
 from django.shortcuts import render_to_response
+import unittest
+from unittest import TestCase
 
 
 class SimpleTest(TestCase):
@@ -17,10 +22,10 @@ class SimpleTest(TestCase):
 
     def test_details(self):
         # Create an instance of a GET request.
-        request = self.factory.get('/contact/contact')
+        request = self.factory.get('/templates/contact')
 
         # Create an instance of a POST request.
-        request = self.factory.post('/contact/thanks', data={'username': 'None', 'email': 'none@none.com', 'password': 'letmein1'})
+        request = self.factory.post('/template/thanks', data={'username': 'None', 'email': 'none@none.com', 'password': 'letmein1'})
 
         # Recall that middleware are not supported. You can simulate a
         # logged-in user by setting request.user manually.
@@ -128,15 +133,15 @@ def test_home_page_status_code_is_ok(self):
 
 def test_check_thanks_is_correct(self):
         thanks_page = self.client.get('/')
-        self.assertTemplateUsed(thanks_page, "thanks.html")
-        thanks_page_template_output = render_to_response("thanks.html").content
+        self.assertTemplateUsed(thanks_page, "/templates/thanks.html")
+        thanks_page_template_output = render_to_response("/templates/thanks.html").content
         self.assertEquals(thanks_page.content, thanks_page_template_output)
 
 
 def test_check_contact_is_correct(self):
         contact_page = self.client.get('/')
-        self.assertTemplateUsed(contact_page, "contact.html")
-        contact_page_template_output = render_to_response("contact.html").content
+        self.assertTemplateUsed(contact_page, "/templates/contact.html")
+        contact_page_template_output = render_to_response("templates/contact.html").content
         self.assertEquals(contact_page.content, contact_page_template_output)
 
 

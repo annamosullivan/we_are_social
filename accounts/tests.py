@@ -19,32 +19,6 @@ from accounts.views import register,cancel_subscription, subscriptions_webhook, 
 import unittest
 
 
-def test_home_page_status_code_is_ok(self):
-    home_page = self.client.get('/')
-    self.assertEquals(home_page.status_code, 200)
-
-
-def test_check_register_is_correct(self):
-        register_page = self.client.get('/')
-        self.assertTemplateUsed(register_page, "register.html")
-        register_page_template_output = render_to_response("register.html").content
-        self.assertEquals(register_page.content, register_page_template_output)
-
-
-def test_check_profile_is_correct(self):
-        profile_page = self.client.get('/')
-        self.assertTemplateUsed(profile_page, "profile.html")
-        profile_page_template_output = render_to_response("profile.html").content
-        self.assertEquals(profile_page.content, profile_page_template_output)
-
-
-def test_logout_goes_to_index(self):
-        index_page = self.client.get('/')
-        self.assertTemplateUsed(index_page, "index.html")
-        index_page_template_output = render_to_response("index.html").content
-        self.assertEquals(index_page.content, index_page_template_output)
-
-
 class SimpleTest(TestCase):
     def setUp(self):
         # Every test needs access to the request factory.
@@ -195,6 +169,10 @@ class CustomUserTest(TestCase):
         })
         self.assertFalse(form.is_valid())
         self.assertRaisesMessage(forms.ValidationError, "Invalid CVV no.Please enter a CVV in format xxx.",form.full_clean())
+
+    def test_home_page_status_code_is_ok(self):
+        home_page = self.client.get('/')
+        self.assertEquals(home_page.status_code, 200)
 
 
 class TestBackends(TestCase):

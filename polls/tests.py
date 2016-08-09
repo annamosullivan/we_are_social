@@ -3,10 +3,14 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from .models import Poll, PollSubject, Vote, Question, Choice
 import unittest
+from unittest import TestCase
 from . import views
-from admin import ChoiceInline, QuestionAdmin
-from views import IndexView, DetailView, ResultsView
-from api_views import PollViewSet, PollInstanceView, VoteCreateView
+from .forms import PollForm, PollSubjectForm
+from .admin import ChoiceInline, QuestionAdmin
+from .views import IndexView, DetailView, ResultsView
+from .views import redirect_to_polls, vote
+from .api_views import PollViewSet, PollInstanceView, VoteCreateView
+from .serializers import VoteSerializer, PollSubjectSerializer, PollSerializer
 from django.contrib.auth.models import AnonymousUser, User
 from django.test import TestCase, RequestFactory, Client
 from django.core import serializers

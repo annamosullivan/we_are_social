@@ -1,9 +1,11 @@
+from contact.models import Feedback
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from .forms import ContactForm
-from .models import Feedback
+import unittest
+from unittest import TestCase
 
 
 def thanks(request):
@@ -22,10 +24,10 @@ def contact(request):
             feedback = Feedback(subject=subject, sender=sender, email=email, message=message,)
             feedback.save()
 
-            return HttpResponseRedirect(reverse('thanks'))
+            return HttpResponseRedirect(reverse('/templates/thanks'))
     else:
         form = ContactForm()
 
-    return render_to_response('contact.html', {
+    return render_to_response('/templates/contact.html', {
         'form': form,
     }, context_instance=RequestContext(request))
