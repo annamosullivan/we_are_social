@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
-from django.apps import AppConfig
+import django.apps
 
 
-class HomeConfig(AppConfig):
+class HomeConfig(django.apps.AppConfig):
     name = 'home'

@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response
 from django.test import TestCase, RequestFactory
 from home.views import get_index
 from . import views
+from .apps import HomeConfig
 import unittest
 from unittest import TestCase
 
