@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from .models import Membership
 import paypal.standard.forms
 from paypal.standard.forms import PayPalPaymentsForm
@@ -7,12 +7,11 @@ from django.conf import settings
 from django.db import models
 import unittest
 from unittest import TestCase
-from django.test import Client
 from . import views
 from .admin import BookAdmin
 from memberships.views import all_memberships
 from django.core.urlresolvers import resolve
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render, get_object_or_404, redirect
 from django.contrib.auth.models import AnonymousUser, User
 from django.test import RequestFactory
 

@@ -3,11 +3,13 @@ from django.core.urlresolvers import resolve
 from django.db import models
 from django.shortcuts import render_to_response
 from django.test import TestCase, RequestFactory
+import django.apps.AppConfig
 from home.views import get_index
 from . import views
 from .apps import HomeConfig
 import unittest
 from unittest import TestCase
+from django.test import TestCase
 
 
 class SimpleTest(TestCase):
@@ -63,6 +65,12 @@ class HomePageTest(TestCase):
 
 
 class TestHomeConfig(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
     def test_home_config(self):
         self.failUnless('home')
 

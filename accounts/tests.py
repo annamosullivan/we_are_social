@@ -1,5 +1,7 @@
 from django import forms
 from django.conf import settings
+import sys
+import difflib
 from django.contrib import messages, auth
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, render, redirect
@@ -7,24 +9,33 @@ from django.template.context_processors import csrf
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import AnonymousUser
 from django.shortcuts import render_to_response
+from django.http import HttpRequest, Http404
 import django.test
-from django.test import TestCase, RequestFactory
-from django.test import Client
+from django.test import TestCase, RequestFactory, Client, TransactionTestCase
 from .backends import EmailAuth
 from .forms import UserRegistrationForm
-from .models import User
+from .models import User, AccountUserManager
 from .apps import AccountsConfig
 from . import views
-from accounts.views import register,cancel_subscription, subscriptions_webhook, profile, login, logout
+from accounts.views import register, cancel_subscription, subscriptions_webhook, profile, login, logout
 import unittest
+from rest_framework.request import Request
 
 
 class SimpleTest(TestCase):
     def setUp(self):
         # Every test needs access to the request factory.
         self.client = Client()
+        self.user = User.objects.create_user(username='None', email='test@test.com', password='letmein1')
+        self.client.format_kwarg = ''
+
         self.factory = RequestFactory()
-        self.user = User.objects.create_user(username='None', email='none@none.com', password='letmein1')
+        RequestFactory(username='None', email='test@test.com', password='letmein1')
+
+        self.request = Request(HttpRequest())
+        self.request.__setattr__('user', self.request.user)
+        self.client.request = self.request
+
 
     def test_details(self):
         # Create an instance of a GET request.
@@ -36,10 +47,11 @@ class SimpleTest(TestCase):
 
         # Or you can simulate an anonymous user by setting request.user to
         # an AnonymousUser instance.
-        request.user = AnonymousUser()
+        #self.user = AnonymousUser()
+        #self.assertEqual(self.client, self.factory, RequestFactory)
 
 
-class CustomUserTest(TestCase):
+class TestRegistration(TestCase):
 
     def test_manager_create(self):
         user = User.objects._create_user(None, "test@test.com", "password", False, False)

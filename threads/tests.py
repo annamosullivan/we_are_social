@@ -2,8 +2,6 @@ from django.test import TestCase
 import self as self
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.core.urlresolvers import reverse, resolve
-import difflib
-import sys
 import unittest
 import json
 import mock
@@ -16,10 +14,11 @@ from .forms import ThreadForm, PostForm
 from .serializers import PostSerializer
 from .models import Subject, Thread, Post
 from django.contrib.auth.models import AnonymousUser, User
-from django.test import TestCase, Client
 from django.utils import timezone
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpRequest
+from rest_framework.request import Request
 from templatetags.threads_extras import get_total_subject_posts, started_time, last_posted_user_name, user_vote_button, vote_percentage
+from django.test import TestCase, RequestFactory, Client, TransactionTestCase
 
 
 class SubjectPageTest(TestCase):
@@ -38,7 +37,7 @@ class NewThreadAuthenticate(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.url_path = '/templates/forum/threads.html'
+        self.url_path = '/forum/threads.html'
         self.data = {"email": "none@none.com", "password": "letmein1"}
 
     def test_api_authenticate_get(self):
@@ -79,16 +78,11 @@ class TestForumPage(TestCase):
         self.client = Client()
 
     def test_index_page(self):
-        url = render_to_response('/templates/forum/')
-        response = self.client.post('/templates/forum/forum.html',{'subjects': Subject.objects.all()})
+        url = render_to_response('/forum/')
+        response = self.client.post('/forum.html',{'subjects': Subject.objects.all()})
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, '/templates/forum/forum.html')
+        self.assertTemplateUsed(response, '/forum/forum.html')
         self.assertContains(response, 'subjects')
-
-
-
-
-
 
 
 

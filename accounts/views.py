@@ -2,12 +2,16 @@ from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from accounts.forms import UserRegistrationForm, UserLoginForm
 from django.core.urlresolvers import reverse
+from django.core import serializers
 from django.shortcuts import render, redirect, render_to_response
 from django.template.context_processors import csrf
 from django.conf import settings
 import datetime
+from django.test import TestCase
+import unittest
+from unittest import TestCase
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRequest
 from models import User
 from django.contrib import messages, auth
 from accounts.forms import UserRegistrationForm

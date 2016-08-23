@@ -1,5 +1,7 @@
-from models import User
+from .models import User, AccountUserManager
 import unittest
+from unittest import TestCase
+from django.test import TestCase, TransactionTestCase
 
 
 class EmailAuth(object):

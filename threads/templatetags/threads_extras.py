@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, render
 import unittest
 from unittest import TestCase
+from django.test import TestCase
 
 register = template.Library()
 

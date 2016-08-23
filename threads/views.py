@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse, resolve
 from django.forms import formset_factory
 from django.shortcuts import render, get_object_or_404, redirect, render_to_response
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpRequest, Http404
 from django.template.context_processors import csrf
 from polls.forms import PollSubjectForm, PollForm
 from polls.models import PollSubject
@@ -14,13 +14,14 @@ import sys
 import unittest
 from unittest import TestCase
 
+
 def forum(request):
-    return render(request, '/templates/forum/forum.html',{'subjects': Subject.objects.all()})
+    return render(request, '/forum/forum.html',{'subjects': Subject.objects.all()})
 
 
 def threads(request, subject_id):
     subject = get_object_or_404(Subject, pk=subject_id)
-    return render(request, '/templates/forum/threads.html', {'subject': subject})
+    return render(request, '/forum/threads.html', {'subject': subject})
 
 
 @login_required
@@ -73,14 +74,14 @@ def new_thread(request, subject_id):
 
     args.update(csrf(request))
 
-    return render(request, '/templates/forum/thread_form.html', args)
+    return render(request, '/forum/thread_form.html', args)
 
 
 def thread(request, thread_id):
     thread_ = get_object_or_404(Thread, pk=thread_id)
     args = {'thread': thread_}
     args.update(csrf(request))
-    return render(request, '/templates/forum/thread.html', args)
+    return render(request, '/forum/thread.html', args)
 
 
 @login_required
@@ -111,7 +112,7 @@ def new_post(request, thread_id):
 
     args.update(csrf(request))
 
-    return render(request, '/templates/forum/post_form.html', args)
+    return render(request, '/forum/post_form.html', args)
 
 
 @login_required
@@ -138,7 +139,7 @@ def edit_post(request, thread_id, post_id):
 
     args.update(csrf(request))
 
-    return render(request, '/templates/forum/post_form.html', args)
+    return render(request, '/forum/post_form.html', args)
 
 
 @login_required
