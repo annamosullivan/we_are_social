@@ -28,8 +28,9 @@ INSTALLED_APPS = [
     'reusable_blog',
     'home',
     'accounts',
+    'contact',
+    'memberships',
     'paypal_store',
-    'products',
     'threads',
     'polls',
 ]

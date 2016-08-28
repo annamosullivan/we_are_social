@@ -172,8 +172,8 @@ STRIPE_SECRET = os.getenv('STRIPE_SECRET', '<replace this with your stripe secre
 STRIPE_PUBLISHABLE = os.getenv('STRIPE_PUBLISHABLE', 'pk_test_nbWefqblVg8HnYsFmpcld8qj')
 STRIPE_SECRET = os.getenv('STRIPE_SECRET', 'sk_test_N35jP51CRqW4FKBMa8MAL1A4')
 
-SITE_URL = 'http://127.0.0.1:8000'
-PAYPAL_NOTIFY_URL = 'https://291e2d8f.ngrok.io/a-very-hard-to-guess-url/'
+SITE_URL = 'http://wearesocial2016.herokuapp.com'
+PAYPAL_NOTIFY_URL = 'http://wearesocial2016.herokuapp.com'
 PAYPAL_RECEIVER_EMAIL = 'annamarieosullivan76@gmail.com'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

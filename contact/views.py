@@ -9,7 +9,7 @@ from unittest import TestCase
 
 
 def thanks(request):
-    return render_to_response('thanks.html')
+    return render_to_response('/thanks.html')
 
 
 def contact(request):
@@ -24,10 +24,10 @@ def contact(request):
             feedback = Feedback(subject=subject, sender=sender, email=email, message=message,)
             feedback.save()
 
-            return HttpResponseRedirect(reverse('/templates/thanks'))
+            return HttpResponseRedirect(reverse('thanks'))
     else:
         form = ContactForm()
 
-    return render_to_response('/templates/contact.html', {
+    return render_to_response('contact.html', {
         'form': form,
     }, context_instance=RequestContext(request))
