@@ -6,6 +6,7 @@ import unittest
 import json
 import mock
 from mock import patch
+import unittest
 from unittest import TestCase
 from . import views
 from threads.views import forum, threads, new_thread, thread, new_post, edit_post, delete_post, thread_vote, user_vote_button, vote_percentage
@@ -13,6 +14,7 @@ from .api_views import PostUpdateView, PostDeleteView
 from .forms import ThreadForm, PostForm
 from .serializers import PostSerializer
 from .models import Subject, Thread, Post
+from django.contrib import auth
 from django.contrib.auth.models import AnonymousUser, User
 from django.utils import timezone
 from django.http import HttpResponse, Http404, HttpRequest
@@ -21,7 +23,7 @@ from templatetags.threads_extras import get_total_subject_posts, started_time, l
 from django.test import TestCase, RequestFactory, Client, TransactionTestCase
 
 
-class SubjectPageTest(TestCase):
+class TestSubjectPage(TestCase):
 
     fixtures = ['subjects']
 
@@ -33,7 +35,7 @@ class SubjectPageTest(TestCase):
         self.assertEquals(subject_page.content, subject_page_template_output)
 
 
-class NewThreadAuthenticate(TestCase):
+class TestNewThreadAuthenticate(TestCase):
 
     def setUp(self):
         self.client = Client()
@@ -45,31 +47,16 @@ class NewThreadAuthenticate(TestCase):
 
         self.assertEqual(405, response.status_code)
 
-    def test_api_authenticate_not_json(self):
-        response = self.client.post(self.url_path, data='', content_type='application/json')
-
-        self.assertEqual(400, response.status_code)
-        self.assertEqual(b'{"error": "Could not parse body as JSON"}', response.content)
-
     def test_api_authenticate_missing_fields(self):
-        response = self.client.post(self.url_path, data=json.dumps({}), content_type='application/json')
-
+        response = self.client.post(self.url_path, data=json.dumps({}))
         self.assertEqual(400, response.status_code)
         self.assertEqual(b'{"error": "Missing required field \'email\'"}', response.content)
-
-    def test_api_authenticate_failure(self):
-        response = self.client.post(self.url_path, data=json.dumps(self.data), content_type='application/json')
-
-        self.assertEqual(401, response.status_code)
-        self.assertEqual(b'{"error": "Invalid credentials"}', response.content)
 
     @patch('django.contrib.auth.authenticate')
     def test_api_authenticate_success(self, mock_authenticate):
         user = User()
         mock_authenticate.return_value = user
-
-        response = self.client.post(self.url_path, data=json.dumps(self.data), content_type='application/json')
-
+        response = self.client.post(self.url_path, data=json.dumps(self.data))
         self.assertContains(response, user.auth_token.key)
 
 class TestForumPage(TestCase):
@@ -84,5 +71,27 @@ class TestForumPage(TestCase):
         self.assertTemplateUsed(response, '/forum/forum.html')
         self.assertContains(response, 'subjects')
 
+
+class TestForum(self):
+    response = views.forum(self.request)
+    self.assertContains(response, '/forum/forum.html',{'subjects': Subject.objects.all()})
+
+
+class TestThreads(self):
+    response = views.forum(self.request)
+    self.assertContains(response, '/forum/threads.html',{'subjects': Subject.objects.all()})
+
+
+class TestThread(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_thread_page(self):
+        url = render_to_response('/forum/thread.html')
+        response = self.client.post('/forum/thread.html',{'subjects': Subject.objects.all()})
+        self.assertEqual(response.status_code, 200)
+        self.assertNotEquals(response.status_code, 404)
+        self.assertTemplateUsed(response, '/forum/thread.html')
 
 
