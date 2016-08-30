@@ -57,7 +57,6 @@ INSTALLED_APPS = [
     'threads',
     'polls',
     'contact',
-    'we_are_social'
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
