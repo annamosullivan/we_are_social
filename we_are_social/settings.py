@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_34saw!bco()q8$4(_5iyik-+nmr+u7jrsfywjq)guc9+j%==c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 SITE_ID = 5
@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'threads',
     'polls',
     'contact',
+    'we_are_social'
 ]
 
 AUTH_USER_MODEL = 'accounts.User'

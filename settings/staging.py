@@ -1,7 +1,7 @@
 from base import *
 
 
-DEBUG = True
+DEBUG = False
 
 # Stripe environment variables
 STRIPE_PUBLISHABLE = os.getenv('STRIPE_PUBLISHABLE', 'pk_test_nbWefqblVg8HnYsFmpcld8qj')
