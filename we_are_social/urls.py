@@ -31,15 +31,15 @@ urlpatterns = [
 
     # Paypal URLs
     url(r'^a-very-hard-to-guess-url/', include(paypal_urls)),
-    url(r'^paypal-return/$', paypal_views.paypal_return),
-    url(r'^paypal-cancel/$', paypal_views.paypal_cancel),
-    url(r'^memberships/$', membership_views.all_memberships),
+    url(r'^paypal-return/$', paypal_views.paypal_return, name='paypal_return'),
+    url(r'^paypal-cancel/$', paypal_views.paypal_cancel, name='paypal_cancel'),
+    url(r'^memberships/$', membership_views.all_memberships, name='memberships'),
 
     # Blog URLs
     url(r'^blog/', include('reusable_blog.urls')),
 
     # Forum URLs
-    url(r'^forum/$', forum_views.forum),
+    url(r'^forum/$', forum_views.forum, name='forum'),
     url(r'^threads/(?P<subject_id>\d+)/$', forum_views.threads, name='threads'),
     url(r'^new_thread/(?P<subject_id>\d+)/$', forum_views.new_thread, name='new_thread'),
     url(r'^thread/(?P<thread_id>\d+)/$', forum_views.thread, name='thread'),
