@@ -41,7 +41,7 @@ class SimpleTest(TestCase):
 class HomePageTest(TestCase):
 
     def setUp(self):
-        
+
         super(HomePageTest, self).setUp()
         self.user = User.objects.create(username='testuser')
         self.user.set_password('letmein')

@@ -249,5 +249,3 @@ def test_logout(self):
         # Check that the response is 200 OK.
         self.assertEqual(response.status_code, 200)
         self.assertEqual(b'{"messages": "You have successfully logged out"}', response.content)
-
-
