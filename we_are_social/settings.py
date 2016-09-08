@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'tinymce',
     'emoticons',
     'disqus',
+    'django-disqus',
     'reusable_blog',
     'home',
     'accounts',
