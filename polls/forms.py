@@ -1,7 +1,5 @@
 from django import forms
 from .models import Poll, PollSubject
-import unittest
-from unittest import TestCase
 
 
 class PollForm(forms.ModelForm):

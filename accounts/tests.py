@@ -1,27 +1,15 @@
 from django import forms
 from django.conf import settings
-import sys
-import difflib
-from django.contrib import messages, auth
-from django.core.urlresolvers import reverse
-from django.shortcuts import render_to_response, render, redirect
-from django.template.context_processors import csrf
 from django.contrib.auth.hashers import check_password
-from django.contrib.auth.models import AnonymousUser
-from django.shortcuts import render_to_response
-from django.http import HttpRequest, Http404
-import django.test
-from django.test import TestCase, RequestFactory, Client, TransactionTestCase
+from django.http import HttpRequest
+from django.test import TestCase, RequestFactory, Client
+from rest_framework.request import Request
 from .backends import EmailAuth
 from .forms import UserRegistrationForm
-from .models import User, AccountUserManager
-from .apps import AccountsConfig
-from . import views
-from accounts.views import register, cancel_subscription, subscriptions_webhook, profile, login, logout
-import unittest
-from rest_framework.request import Request
+from .models import User
 
 
+# checking that users can login to their accounts
 class SimpleTest(TestCase):
     def setUp(self):
         # Every test needs access to the request factory.
@@ -36,7 +24,6 @@ class SimpleTest(TestCase):
         self.request.__setattr__('user', self.request.user)
         self.client.request = self.request
 
-
     def test_details(self):
         # Create an instance of a GET request.
         request = self.factory.get('/templates/profile')
@@ -45,12 +32,8 @@ class SimpleTest(TestCase):
         # logged-in user by setting request.user manually.
         request.user = self.user
 
-        # Or you can simulate an anonymous user by setting request.user to
-        # an AnonymousUser instance.
-        #self.user = AnonymousUser()
-        #self.assertEqual(self.client, self.factory, RequestFactory)
 
-
+# checking various scenarios that occur when users submit valid, invalid or missing data
 class TestRegistration(TestCase):
 
     def test_manager_create(self):
@@ -187,6 +170,7 @@ class TestRegistration(TestCase):
         self.assertEquals(home_page.status_code, 200)
 
 
+# checking that the backend can validate user data
 class TestBackends(TestCase):
     def test_authenticate_invalid(self):
         email_auth = EmailAuth()
@@ -224,7 +208,7 @@ class TestBackends(TestCase):
         except User.DoesNotExist:
             return None
 
-
+# checking that user data can be posted, and that they are redirected to their account profile or the logout page
 class ExamplePostTest(TestCase):
     @classmethod
     def setUpTestData(self):

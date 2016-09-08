@@ -1,17 +1,15 @@
+import unittest
+
 from django.contrib.auth.models import AnonymousUser, User
 from django.core.urlresolvers import resolve
-from django.db import models
 from django.shortcuts import render_to_response
-from django.test import TestCase, RequestFactory
-import django.apps.AppConfig
+from django.test import RequestFactory
+from django.test import TestCase
 from home.views import get_index
 from . import views
-from .apps import HomeConfig
-import unittest
-from unittest import TestCase
-from django.test import TestCase
 
 
+# test that users can go to login home page either when they're logged in as themselves or as an anonymous user
 class SimpleTest(TestCase):
     def setUp(self):
         # Every test needs access to the request factory.
@@ -38,6 +36,7 @@ class SimpleTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
+# check that user logs into a home page containing correct content and status code
 class HomePageTest(TestCase):
 
     def setUp(self):

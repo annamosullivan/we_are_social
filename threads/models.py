@@ -1,9 +1,7 @@
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from tinymce.models import HTMLField
-from django.conf import settings
-import unittest
-from unittest import TestCase
 
 
 class Subject(models.Model):

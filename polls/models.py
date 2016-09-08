@@ -1,10 +1,9 @@
 import datetime
-from django.contrib import admin
+
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
-from django.conf import settings
 from threads.models import Thread
-from django.utils.encoding import python_2_unicode_compatible
 
 
 class Poll(models.Model):

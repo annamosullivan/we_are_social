@@ -4,8 +4,6 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from .forms import ContactForm
-import unittest
-from unittest import TestCase
 
 
 def thanks(request):

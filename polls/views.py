@@ -1,12 +1,9 @@
-from django.utils import timezone
-from django.shortcuts import get_object_or_404, render, render_to_response
-from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.utils import timezone
 from django.views import generic
-from django.core import serializers
 from .models import Choice, Question
-import unittest
-from unittest import TestCase
 
 
 def redirect_to_polls(request):

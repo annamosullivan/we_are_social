@@ -1,28 +1,15 @@
-from django.test import TestCase
-import self as self
-from django.shortcuts import get_object_or_404, redirect, render_to_response
-from django.core.urlresolvers import reverse, resolve
-import unittest
 import json
-import mock
+
+import self as self
+from django.contrib.auth.models import User
+from django.shortcuts import render_to_response
+from django.test import TestCase, Client
 from mock import patch
-import unittest
-from unittest import TestCase
 from . import views
-from threads.views import forum, threads, new_thread, thread, new_post, edit_post, delete_post, thread_vote, user_vote_button, vote_percentage
-from .api_views import PostUpdateView, PostDeleteView
-from .forms import ThreadForm, PostForm
-from .serializers import PostSerializer
-from .models import Subject, Thread, Post
-from django.contrib import auth
-from django.contrib.auth.models import AnonymousUser, User
-from django.utils import timezone
-from django.http import HttpResponse, Http404, HttpRequest
-from rest_framework.request import Request
-from templatetags.threads_extras import get_total_subject_posts, started_time, last_posted_user_name, user_vote_button, vote_percentage
-from django.test import TestCase, RequestFactory, Client, TransactionTestCase
+from .models import Subject
 
 
+# checking that going to forum home page displays the list of subjects
 class TestSubjectPage(TestCase):
 
     fixtures = ['subjects']
@@ -35,6 +22,7 @@ class TestSubjectPage(TestCase):
         self.assertEquals(subject_page.content, subject_page_template_output)
 
 
+# checking that users can log in to post a new thread in forum page
 class TestNewThreadAuthenticate(TestCase):
 
     def setUp(self):
@@ -59,6 +47,8 @@ class TestNewThreadAuthenticate(TestCase):
         response = self.client.post(self.url_path, data=json.dumps(self.data))
         self.assertContains(response, user.auth_token.key)
 
+
+# check that users can see subjects in forum page
 class TestForumPage(TestCase):
 
     def setUp(self):
@@ -72,16 +62,19 @@ class TestForumPage(TestCase):
         self.assertContains(response, 'subjects')
 
 
+# check that users can post subjects in a forum
 class TestForum(self):
     response = views.forum(self.request)
     self.assertContains(response, '/forum/forum.html',{'subjects': Subject.objects.all()})
 
 
+# check that users can post threads in a forum
 class TestThreads(self):
     response = views.forum(self.request)
     self.assertContains(response, '/forum/threads.html',{'subjects': Subject.objects.all()})
 
 
+# check that users can post threads in forum
 class TestThread(TestCase):
 
     def setUp(self):

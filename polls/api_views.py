@@ -1,11 +1,8 @@
+from models import Poll, Vote
 from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from models import Poll, Vote, PollSubject
-from serializers import PollSerializer, VoteSerializer, PollSubjectSerializer
-from threads.models import Thread, Post, Subject
-import unittest
-from unittest import TestCase
+from serializers import PollSerializer, VoteSerializer
+from threads.models import Thread
 
 
 class PollViewSet(generics.ListAPIView):

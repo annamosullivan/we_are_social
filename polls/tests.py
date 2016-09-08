@@ -1,21 +1,15 @@
 import datetime
-from django.core.urlresolvers import reverse
-from django.utils import timezone
-from .models import Poll, PollSubject, Vote, Question, Choice
-import unittest
-from unittest import TestCase
-from . import views
-from .forms import PollForm, PollSubjectForm
-from .admin import ChoiceInline, QuestionAdmin
-from .views import IndexView, DetailView, ResultsView
-from .views import redirect_to_polls, vote
-from .api_views import PollViewSet, PollInstanceView, VoteCreateView
-from .serializers import VoteSerializer, PollSubjectSerializer, PollSerializer
+
 from django.contrib.auth.models import AnonymousUser, User
-from django.test import TestCase, RequestFactory, Client
 from django.core import serializers
+from django.core.urlresolvers import reverse
+from django.test import TestCase, RequestFactory, Client
+from django.utils import timezone
+from . import views
+from .models import Vote, Question
 
 
+# checking that users can login to polls page or as an anonymous user
 class SimpleTest(TestCase):
     def setUp(self):
         # Every test needs access to the request factory.
@@ -50,6 +44,7 @@ def create_question(question_text, days):
         return Question.objects.create(question_text=question_text, pub_date=time)
 
 
+# checking to see if people can add past or future questions to a poll
 class QuestionMethodTests(TestCase):
 
     def test_was_published_recently_with_future_question(self):
@@ -80,6 +75,8 @@ class QuestionMethodTests(TestCase):
         self.assertEqual(recent_question.was_published_recently(), True)
 
 
+# checking to see if polls can be added with no questions,
+# past or future questions in the list of questions
 class QuestionViewTests(TestCase):
 
     def test_index_view_with_no_questions(self):
@@ -130,6 +127,7 @@ class QuestionViewTests(TestCase):
         self.assertQuerysetEqual(response.context['latest_question_list'],['<Question: Past question 2.>','<Question: Past question 1.>'])
 
 
+# checking to see if selecting invalid question types return appropriate status codes
 class QuestionIndexDetailTests(TestCase):
 
     def test_detail_view_with_a_future_question(self):
@@ -151,6 +149,7 @@ class QuestionIndexDetailTests(TestCase):
         self.assertContains(response, past_question.question_text, status_code=200)
 
 
+# checking to see if selecting no questions return appropriate status code
 class QuestionResultsDetailTests(TestCase):
 
     def test_detail_view_with_nothing_selected(self, question=None, request=None):
@@ -163,6 +162,7 @@ class QuestionResultsDetailTests(TestCase):
         self.assertEqual(response.status_code, 404)
 
 
+# checking to see if valid votes, and invalid votes with missing polls/choices can be posted
 class PollTest(TestCase):
 
     def test_ajax_vote(self):
@@ -187,6 +187,7 @@ class PollTest(TestCase):
         self.assertEqual(response.status_code, 404)
 
 
+# check to see if choices selected in votes work and can be posted
 class ApiViewsSerializerTest (TestCase):
     def test_serializer(self):
         # Stuff to serialize

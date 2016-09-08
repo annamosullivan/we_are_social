@@ -1,23 +1,18 @@
-from django.contrib.auth.decorators import login_required
-from accounts.forms import UserRegistrationForm, UserLoginForm
-from django.core import serializers
-from django.template.context_processors import csrf
-from django.conf import settings
 import datetime
-from django.test import TestCase
-import unittest
-from unittest import TestCase
-from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
-from models import User
+import json
+
+import arrow
+import stripe
+from accounts.forms import UserRegistrationForm, UserLoginForm
+from django.conf import settings
 from django.contrib import messages, auth
-from accounts.forms import UserRegistrationForm, UserLoginForm, ContactForm
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template.context_processors import csrf
-import stripe
-import arrow
-import json
+from django.views.decorators.csrf import csrf_exempt
+from models import User
 
 stripe.api_key = settings.STRIPE_SECRET
 

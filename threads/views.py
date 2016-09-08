@@ -1,18 +1,14 @@
-from django.contrib import messages, auth
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse, resolve
+from django.core.urlresolvers import reverse
 from django.forms import formset_factory
-from django.shortcuts import render, get_object_or_404, redirect, render_to_response
-from django.http import HttpResponseRedirect, HttpRequest, Http404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.template.context_processors import csrf
 from polls.forms import PollSubjectForm, PollForm
 from polls.models import PollSubject
 from threads.models import Subject, Post, Thread
 from threads.templatetags.threads_extras import register
 from .forms import ThreadForm, PostForm
-import sys
-import unittest
-from unittest import TestCase
 
 
 def forum(request):

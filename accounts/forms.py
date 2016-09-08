@@ -1,8 +1,6 @@
+from accounts.models import User
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from accounts.models import User
-import unittest
-from unittest import TestCase
 
 
 class UserRegistrationForm(UserCreationForm):

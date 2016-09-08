@@ -1,18 +1,13 @@
 from django import forms
-import sys
 from django.contrib.auth.models import AnonymousUser, User
-from django.test import TestCase, RequestFactory
+from django.test import RequestFactory
 from . import views
-from .views import thanks, contact
 from .forms import ContactForm
-from .models import Feedback
-#from django.test import TestCase
-from django.core.urlresolvers import resolve, reverse
 from django.shortcuts import render_to_response
-import unittest
 from unittest import TestCase
 
 
+# checking that users can access the template contact page
 class SimpleTest(TestCase):
     def setUp(self):
         # Every test needs access to the request factory.
@@ -42,6 +37,7 @@ class SimpleTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
+# checking that users can add contact details, get error messages when invalid/missing data is submitted
 class CustomContactTest(TestCase):
 
     def test_manager_create(self, Contact=None):
@@ -125,7 +121,6 @@ class CustomContactTest(TestCase):
                                  "Invalid e-mail.Please enter in format joe@bloggs.com",
                                  form.full_clean())
 
-
 def test_home_page_status_code_is_ok(self):
     home_page = self.client.get('/')
     self.assertEquals(home_page.status_code, 200)
@@ -143,6 +138,9 @@ def test_check_contact_is_correct(self):
         self.assertTemplateUsed(contact_page, "/templates/contact.html")
         contact_page_template_output = render_to_response("templates/contact.html").content
         self.assertEquals(contact_page.content, contact_page_template_output)
+
+
+
 
 
 
