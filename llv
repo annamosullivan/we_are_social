@@ -1,0 +1,83 @@
+[33mcommit 1a2cabab3acf00bfccdbcad66938068132b091e2[m
+Author: Anne <osullivan_anne@hotmail.com>
+Date:   Thu Sep 8 00:04:39 2016 +0100
+
+    updated base.html, blog.css to have a responsive website viewable by mobile devices
+
+[33mcommit 5a19f12faf7cf7c872955bbd70ec4a25b51e7c18[m
+Author: Anne <osullivan_anne@hotmail.com>
+Date:   Thu Sep 8 00:02:25 2016 +0100
+
+    updated base.html, blog.css to have a responsive website viewable by mobile devices
+
+[33mcommit 0bcacde91abc8f01316245f03251b0037820b1d8[m
+Author: Anne <osullivan_anne@hotmail.com>
+Date:   Wed Aug 31 22:30:33 2016 +0100
+
+    8th attempt at deployment
+
+[33mcommit cb45b4bab8982b404b07edcfef23f48d2ba60114[m
+Author: Anne <osullivan_anne@hotmail.com>
+Date:   Tue Aug 30 22:02:35 2016 +0100
+
+    7th attempt at deployment-set DEBUG=False in settings.py
+
+[33mcommit 4e18b69420a63ab8279c760390c770802fa9ac2d[m
+Author: Anne <osullivan_anne@hotmail.com>
+Date:   Tue Aug 30 22:01:39 2016 +0100
+
+    7th attempt at deployment-set DEBUG=False in settings.py
+
+[33mcommit 3a4e2f530114959e757a02ae4e7cae6ee64554d6[m
+Author: Anne <osullivan_anne@hotmail.com>
+Date:   Tue Aug 30 21:58:21 2016 +0100
+
+    7th attempt at deployment
+
+[33mcommit 45e7b8b7afe59c04ada2fbf15349661a0c92c9c0[m
+Author: Anne <osullivan_anne@hotmail.com>
+Date:   Mon Aug 29 23:01:00 2016 +0100
+
+    6th attempt at deployment
+
+[33mcommit 7782a732c73d82eedea708f2eb694f794fc04522[m
+Author: Anne <osullivan_anne@hotmail.com>
+Date:   Mon Aug 29 22:54:32 2016 +0100
+
+    5th attempt at deployment
+
+[33mcommit e4005f38e2322d08759033e83bcf3b516a881aef[m
+Author: Anne <osullivan_anne@hotmail.com>
+Date:   Mon Aug 29 22:31:57 2016 +0100
+
+    4th attempt at deployment
+
+[33mcommit 9040c088a3e2e46b21eb924b2be53a8bde1e234c[m
+Author: Anne <osullivan_anne@hotmail.com>
+Date:   Mon Aug 29 22:15:43 2016 +0100
+
+    3rd attempt at deployment
+
+[33mcommit 32052fc89d6550ee482e173585396b9672223a7b[m
+Author: Anne <osullivan_anne@hotmail.com>
+Date:   Mon Aug 29 22:05:33 2016 +0100
+
+    2nd attempt at deployment
+
+[33mcommit 07de04d1ea9e8285ef1c6d56b9f2943ff024d547[m
+Author: Anne <osullivan_anne@hotmail.com>
+Date:   Mon Aug 29 21:58:50 2016 +0100
+
+    1st attempt at deployment
+
+[33mcommit c7b48ee7ef9346a2a8eebb5099a1c138e7281515[m
+Author: Anne <osullivan_anne@hotmail.com>
+Date:   Sun Aug 28 16:45:32 2016 +0100
+
+    1st attempt at deployment
+
+[33mcommit 4f03b100e46929ad0596ffb67a975d5f5a830e65[m
+Author: Anne <osullivan_anne@hotmail.com>
+Date:   Sun Aug 28 14:36:34 2016 +0100
+
+    tried to test accounts/views.py, threads/views.py to increase coverage
