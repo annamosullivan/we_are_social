@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
+from django.conf import settings
 from django.contrib import admin
-from .settings import MEDIA_ROOT
 from home import views as home_views
 from contact import views as contact_views
 from paypal.standard.ipn import urls as paypal_urls
@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', home_views.get_index),
     url(r'^polls/', include('polls.urls', namespace="polls")),
-    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 
     # Auth URLs
     url(r'^pages/', include('django.contrib.flatpages.urls')),

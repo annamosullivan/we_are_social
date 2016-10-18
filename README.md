@@ -27,4 +27,6 @@ These include:
 *	Django(Python) for the full stack framework
 * Heroku for deployment
 
+DEVELOPMENT
+SET DJANGO_SETTINGS_MODULE=settings.dev
 
