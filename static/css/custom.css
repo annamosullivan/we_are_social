@@ -1,3 +1,7 @@
+body{
+    padding: 15px;
+}
+
  #number-projects-nd {
      background: #33CC99;
      position: relative;
