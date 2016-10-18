@@ -58,4 +58,5 @@ urlpatterns = [
 
     # Contact URL
     url(r'^contact$', contact_views.contact, name='contact'),
+    url(r'^thanks$', contact_views.thanks, name='thanks'),
 ]

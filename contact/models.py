@@ -3,7 +3,7 @@ from django.db import models
 
 class Feedback(models.Model):
     subject = models.CharField(max_length=100)
-    sender = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     email = models.EmailField(max_length=20)
     message = models.TextField()
 
