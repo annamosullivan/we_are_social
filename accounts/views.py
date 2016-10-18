@@ -20,6 +20,7 @@ stripe.api_key = settings.STRIPE_SECRET
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
+        customer = None
         if form.is_valid():
             try:
                 customer = stripe.Customer.create(
