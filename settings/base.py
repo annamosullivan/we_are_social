@@ -7,7 +7,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '_34saw!bco()q8$4(_5iyik-+nmr+u7jrsfywjq)guc9+j%==c'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['wearesocial2016.herokuapp.com','localhost','127.0.0.1']
+SECURE_PROXY_SSL_SERVER=('HTTP_X_FORWARDED_PROTO','https')
 SITE_ID = 2
 
 # Application definition
@@ -119,3 +120,5 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
 EMAIL_PORT = 1025
+
+
