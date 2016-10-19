@@ -2,6 +2,10 @@ body{
     padding: 15px;
 }
 
+th, td {
+    padding-right: 6px;
+}
+
  #number-projects-nd {
      background: #33CC99;
      position: relative;
