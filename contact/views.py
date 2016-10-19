@@ -8,12 +8,12 @@ from email.utils import formataddr
 from django.conf import settings
 
 
-def send_email(subject, message, email, name):
+def send_email(subject, message, sender, recipient):
     send_mail(
         subject,
         message,
-        settings.REPLY_TO,
-        [formataddr((name, email))],
+        sender,
+        [recipient],
         fail_silently=False,
     )
 
@@ -27,7 +27,9 @@ def contact(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             contact_data = form.save()
-            send_email(contact_data.subject, contact_data.message, contact_data.email, contact_data.name)
+            recipient = settings.REPLY_TO
+            sender = formataddr((contact_data.name, contact_data.email))
+            send_email(contact_data.subject, contact_data.message, sender, recipient)
             return HttpResponseRedirect(reverse('thanks'))
     else:
         form = ContactForm()
