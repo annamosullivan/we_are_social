@@ -1,6 +1,4 @@
 import json
-
-import self as self
 from django.contrib.auth.models import User
 from django.shortcuts import render_to_response
 from django.test import TestCase, Client
@@ -63,15 +61,19 @@ class TestForumPage(TestCase):
 
 
 # check that users can post subjects in a forum
-class TestForum(self):
-    response = views.forum(self.request)
-    self.assertContains(response, '/forum/forum.html',{'subjects': Subject.objects.all()})
+class TestForum(TestCase):
+
+    def test_forum(self):
+        response = views.forum(self.request)
+        self.assertContains(response, '/forum/forum.html',{'subjects': Subject.objects.all()})
 
 
 # check that users can post threads in a forum
-class TestThreads(self):
-    response = views.forum(self.request)
-    self.assertContains(response, '/forum/threads.html',{'subjects': Subject.objects.all()})
+class TestThreads(TestCase):
+
+    def test_threads(self):
+        response = views.forum(self.request)
+        self.assertContains(response, '/forum/threads.html',{'subjects': Subject.objects.all()})
 
 
 # check that users can post threads in forum
