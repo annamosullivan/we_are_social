@@ -1,12 +1,16 @@
 import os
 import dj_database_url
+from email.utils import formataddr
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '_34saw!bco()q8$4(_5iyik-+nmr+u7jrsfywjq)guc9+j%==c'
-
+ADMINS = [(
+    os.environ.get("ADMIN_NAME", 'admin'),
+    os.environ.get("ADMIN_EMAIL", "example@example.com")
+)]
 ALLOWED_HOSTS = ['wearesocial2016.herokuapp.com','localhost','127.0.0.1']
 SECURE_PROXY_SSL_SERVER=('HTTP_X_FORWARDED_PROTO','https')
 SITE_ID = 2
@@ -116,11 +120,7 @@ DATABASES = {
     'default': dj_database_url.config(default="sqlite:///%s" % os.path.join(BASE_DIR, 'sqlite.db'))
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'testing@example.com'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = False
-EMAIL_PORT = 1025
-
-
+DEFAULT_FROM_EMAIL = formataddr(ADMINS[0])
+REPLY_TO = (
+    os.environ.get('REPLY_TO_EMAIL', DEFAULT_FROM_EMAIL),
+)
