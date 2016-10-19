@@ -27,7 +27,7 @@ def contact(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             contact_data = form.save()
-            recipient = settings.REPLY_TO
+            recipient = settings.ADMINS[0][1]
             sender = formataddr((contact_data.name, contact_data.email))
             send_email(contact_data.subject, contact_data.message, sender, recipient)
             return HttpResponseRedirect(reverse('thanks'))
