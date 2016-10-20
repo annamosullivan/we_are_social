@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block content %}
+{% if not user.is_anonymous %}
     <section>
         <div class="col-md-9">
             <form method="post" action="{% url 'new_thread' subject.id %}">
@@ -51,4 +52,5 @@
         })
     })
     </script>
+    {% endif %}
 {% endblock %}

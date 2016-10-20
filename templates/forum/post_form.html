@@ -12,6 +12,7 @@
     </script>
 {% endblock %}
 {% block content %}
+    {% if not user.is_anonymous %}
     <section>
         <div class="col-md-9">
             <form method="post" action="{{ form_action }}">
@@ -23,4 +24,5 @@
             </form>
         </div>
     </section>
+    {% endif %}
 {% endblock %}

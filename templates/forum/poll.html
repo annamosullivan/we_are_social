@@ -1,5 +1,6 @@
 <div class="container" ng-app="pollApp">
     <div class="col-md-6">
+        {% if not user.is_anonymous %}
         <div class="panel panel-default" ng-controller="PollCtrl">
             <div class="panel-heading">
                 <strong>Poll - {$ poll.question $} (Total of {$ poll.total_votes $} votes so far)</strong>
@@ -20,5 +21,6 @@
                 </div>
             </div>
         </div>
+        {% endif %}
     </div>
 </div>

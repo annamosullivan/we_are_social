@@ -5,6 +5,7 @@
 
     {% for subject in subjects %}
         <section class="subject">
+            {% if not user.is_anonymous %}
             <h2><a href="{% url 'threads' subject.id %}">{{ subject.name }}</a></h2>
             <p>
                 <a href="{% url 'threads' subject.id %}">
@@ -23,6 +24,7 @@
                 <td>{{ subject|get_total_subject_posts }}</td>
             </tr>
         </table>
+        {% endif %}
         </section>
     {% endfor %}
 {% endblock %}
