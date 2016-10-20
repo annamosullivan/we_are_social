@@ -3,11 +3,11 @@
         <table>
             <tr>
                 <td>
-                    {% if not user.is_anonymous %}
+
                     <a href="{% url 'thread' thread.id %}">
                         <h4>{{ thread.name }}</h4>
                     </a>
-                    {% endif %}
+
                 </td>
             </tr>
         </table>
