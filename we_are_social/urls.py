@@ -14,7 +14,7 @@ from threads import api_views as thread_api_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', home_views.get_index),
+    url(r'^$', home_views.get_index, name='index'),
     url(r'^polls/', include('polls.urls', namespace="polls")),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 
