@@ -17,6 +17,7 @@ class Thread(models.Model):
                              related_name='threads')
     subject = models.ForeignKey(Subject, related_name='threads')
     created_at = models.DateTimeField(default=timezone.now)
+    pub_date = models.DateTimeField()
 
 
 class Post(models.Model):
