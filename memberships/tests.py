@@ -39,9 +39,8 @@ class SimpleTest(TestCase):
         request.user = AnonymousUser()
 
         # Test my_view() as if it were deployed at /customer/details
-        response = views.all_memberships(request)
         # Use this syntax for class-based views.
-        response = views.as_view()(request)
+        response = views.all_memberships(request)
         self.assertEqual(response.status_code, 200)
 
 
