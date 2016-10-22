@@ -6,7 +6,7 @@
             <h1>{{ subject.name }}</h1>
         </div>
         <div class="col-md-12">
-
+        {% if not user.is_anonymous %}
             {% if user.is_authenticated %}
                 <p>
                     <a href="{% url 'new_thread' subject.id %}" class="btn btn-primary">New Thread</a>
@@ -15,7 +15,7 @@
             {% for thread in subject.threads.all %}
                 {% include "forum/thread_item.html" %}
             {% endfor %}
-        
+        {% endif %}
         </div>
     </div>
 {% endblock %}

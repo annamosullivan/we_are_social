@@ -4,7 +4,7 @@
 {% block content %}
     <div class="row header">
         <div class="container">
-
+        {% if not user.is_anonymous %}
             <h2>{{ thread.name }}</h2>
             <div class="col-md-12">
                 <table class="table">
@@ -63,5 +63,6 @@
        {% for post in thread.posts.all %}
            {% include "post.html" %}
        {% endfor %}
+   {% endif %}
    </div>
 {% endblock %}

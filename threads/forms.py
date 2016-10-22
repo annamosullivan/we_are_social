@@ -1,5 +1,5 @@
 from django import forms
-from .models import Thread, Post
+from .models import Thread, Post, Subject
 
 
 class ThreadForm(forms.ModelForm):
@@ -17,3 +17,11 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['comment']
+
+class SubjectForm(forms.ModelForm):
+
+    name = forms.CharField(label="Subject name")
+
+    class Meta:
+        model = Post
+        fields = ['subject']

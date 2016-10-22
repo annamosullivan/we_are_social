@@ -1,6 +1,6 @@
 {% load threads_extras %}
 <div class="details">
-
+    {% if not user.is_anonymous %}
     <div class="col-md-6">
         <div class="pull-left">
             <time datetime="{{ post.created_at }}">
@@ -8,6 +8,7 @@
             </time>
         </div>
     </div>
+    {% endif %}
     <div class="col-md-6">
         <div class="pull-right">
             {% if post.user == user or user.is_staff %}
