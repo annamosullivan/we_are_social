@@ -184,6 +184,13 @@ def user_vote_button(thread, subject, user):
     return ""
 
 
+def last_posted_user_name(thread):
+    posts = thread.posts.all().order_by('-created_at')
+    return posts[posts.count()-1].user.username
+    if posts[posts.count] == 0:
+        return 0
+
+
 @register.filter
 def vote_percentage(subject):
     count = subject.votes.count()

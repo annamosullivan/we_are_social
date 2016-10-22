@@ -9,7 +9,7 @@ from threads.models import Thread
 class Poll(models.Model):
 
     question = models.TextField()
-    pub_date = models.DateTimeField()
+    created_at = models.DateTimeField(default=timezone.now)
     thread = models.OneToOneField(Thread, null=True)
 
     def __unicode__(self):
