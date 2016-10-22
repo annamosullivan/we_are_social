@@ -1,7 +1,7 @@
 {% load static %}
 {% load emoticons_tags %}
 <section class="row comment col-md-9">
-{% if not user.is_anonymous %}
+
     <div class="col-md-3 comment-profile">
         <p><img src="{% static 'images/user.png' %}"></p>
         <p>{{ post.user.username }}</p>
@@ -15,5 +15,5 @@
         </div>
         {% include "comment_details.html" %}
     </div>
-{% endif %}
+
 </section>

@@ -120,6 +120,7 @@ class CustomContactTest(TestCase):
                                  "Invalid e-mail.Please enter in format joe@bloggs.com",
                                  form.full_clean())
 
+
 def test_home_page_status_code_is_ok(self):
     home_page = self.client.get('/')
     self.assertEquals(home_page.status_code, 200)

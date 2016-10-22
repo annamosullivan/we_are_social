@@ -10,6 +10,7 @@ def test_membership_page_status_code_is_ok(self):
     home_page = self.client.get('/')
     self.assertEquals(home_page.status_code, 200)
 
+
 # check that membership page goes to the right page with the right content when link clicked on in navbar
 def test_membership_page_content_is_correct(self):
     home_page = self.client.get('/memberships/')

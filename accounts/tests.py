@@ -219,12 +219,14 @@ class ExamplePostTest(TestCase):
         response = self.client.post('/',username='None', email='none@none.com', password='letmein1')
         self.assertEqual(response.status_code, 200)
 
+
 def test_profile(self):
         # Issue a GET request.
         response = self.client.get('/profile.html/')
 
         # Check that the response is 200 OK.
-        #self.assertEqual(response.status_code, 200)
+        self.assertEquals(response.status_code, 200)
+
 
 def test_logout(self):
         # Issue a GET request.
