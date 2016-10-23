@@ -18,10 +18,3 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ['comment']
 
-class SubjectForm(forms.ModelForm):
-
-    name = forms.CharField(label="Subject name")
-
-    class Meta:
-        model = Post
-        fields = ['subject']
