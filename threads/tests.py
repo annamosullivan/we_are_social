@@ -5,6 +5,7 @@ from django.test import TestCase, Client
 from mock import patch
 from . import views
 from .models import Subject
+import difflib
 
 
 # checking that going to forum home page displays the list of subjects
