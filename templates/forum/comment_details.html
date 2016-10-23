@@ -1,6 +1,6 @@
 {% load threads_extras %}
 <div class="details">
-    {% if not user.is_anonymous %}
+    {% if not user.is_authenticated %}
     <div class="col-md-6">
         <div class="pull-left">
             <time datetime="{{ post.created_at }}">
