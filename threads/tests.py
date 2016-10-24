@@ -32,7 +32,7 @@ class TestNewThreadAuthenticate(TestCase):
     def test_api_authenticate_get(self):
         response = self.client.get(self.url_path)
 
-        self.assertEqual(405, response.status_code)
+        self.assertEqual(404, response.status_code)
 
     def test_api_authenticate_missing_fields(self):
         response = self.client.post(self.url_path, data=json.dumps({}))

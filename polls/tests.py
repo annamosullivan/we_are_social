@@ -172,7 +172,7 @@ class PollTest(TestCase):
         kwargs = {'HTTP_X_REQUESTED_WITH':'XMLHttpRequest'}
 
         # A valid vote
-        response = c.post('/polls/1/vote/', {'choice': '1',}, **kwargs)
+        response = c.post('/polls/vote/', {'choice': '1',}, **kwargs)
         # self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, '1')
 
