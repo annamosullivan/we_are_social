@@ -20,7 +20,7 @@ class SimpleTest(TestCase):
 
     def test_paypal_return(self):
         # Issue a GET request.
-        response = self.client.reverse('paypal_return.html')
+        response = self.client.get(reverse('paypal_return.html'))
 
 
     def test_home_page_status_code_is_ok(self):
