@@ -1,5 +1,4 @@
 import datetime
-
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
@@ -11,6 +10,7 @@ class Poll(models.Model):
     question = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
     thread = models.OneToOneField(Thread, null=True)
+    pub_date = models.DateTimeField()
 
     def __unicode__(self):
         return self.question
