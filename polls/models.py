@@ -8,9 +8,8 @@ from threads.models import Thread
 class Poll(models.Model):
 
     question = models.TextField()
-    created_at = models.DateTimeField(default=timezone.now)
+    pub_date = models.DateTimeField(default=timezone.now)
     thread = models.OneToOneField(Thread, null=True)
-    pub_date = models.DateTimeField()
 
     def __unicode__(self):
         return self.question
@@ -34,7 +33,7 @@ class Vote(models.Model):
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateTimeField('date published', default=timezone.now)
 
     def __str__(self):
         return self.question_text
