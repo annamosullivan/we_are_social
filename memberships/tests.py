@@ -24,8 +24,7 @@ class SimpleTest(TestCase):
     def setUp(self):
         # Every test needs access to the request factory.
         self.factory = RequestFactory()
-        self.user = User.objects.create_user(
-            username='None', email='none@none.com', password='letmein1')
+        self.user = User.objects.create_user(username='None', email='none@none.com', password='letmein1')
 
     def test_details(self):
         # Create an instance of a GET request.

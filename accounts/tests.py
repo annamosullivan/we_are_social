@@ -165,10 +165,6 @@ class TestRegistration(TestCase):
         self.assertFalse(form.is_valid())
         self.assertRaisesMessage(forms.ValidationError, "Invalid CVV no.Please enter a CVV in format xxx.",form.full_clean())
 
-    def test_home_page_status_code_is_ok(self):
-        home_page = self.client.get('/')
-        self.assertEquals(home_page.status_code, 200)
-
 
 # checking that the backend can validate user data
 class TestBackends(TestCase):
@@ -213,12 +209,6 @@ class ExamplePostTest(TestCase):
     @classmethod
     def setUpTestData(self):
         self.client = Client()
-
-
-    def test_addAccount(self):
-        response = self.client.post('/',username='None', email='none@none.com', password='letmein1')
-        self.assertEqual(response.status_code, 200)
-
 
 def test_profile(self):
         # Issue a GET request.
