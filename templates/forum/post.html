@@ -10,7 +10,7 @@
     <div class="col-md-9">
         <div class="comment-content">
             {% autoescape off %}
-                {% post.comment|emoticons %}
+                {{ post.comment|emoticons }}
             {% endautoescape %}
         </div>
         {% include "comment_details.html" %}
