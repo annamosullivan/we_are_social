@@ -8,7 +8,7 @@ from django.shortcuts import render_to_response
 from unittest import TestCase
 
 
-User = get_user_model()
+user = get_user_model()
 
 # checking that users can access the template contact page
 class SimpleTest(TestCase):
@@ -34,7 +34,7 @@ class SimpleTest(TestCase):
 
         # Test my_view() as if it were deployed at /customer/details
         # Use this syntax for class-based views.
-        response = views.all_contacts(request)
+        response = views.all_users(request)
         self.assertEqual(response.status_code, 200)
 
 
