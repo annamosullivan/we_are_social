@@ -10,6 +10,15 @@ from . import views
 
 
 user = get_user_model()
+
+# checking that users can access the template contact page
+class SimpleTest(TestCase):
+    def setUp(self):
+        # Every test needs access to the request factory.
+        self.factory = RequestFactory()
+        self.user = User.objects.create_user(username='None', email='none@none.com', password='letmein1')
+
+
 # check that user logs into a home page containing correct content and status code
 class HomePageTest(TestCase):
 
