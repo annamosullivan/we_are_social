@@ -34,7 +34,7 @@ class SimpleTest(TestCase):
 
         # Test my_view() as if it were deployed at /customer/details
         # Use this syntax for class-based views.
-        response = views.all_users(request)
+        response = views.user(request)
         self.assertEqual(response.status_code, 200)
 
 
