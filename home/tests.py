@@ -6,10 +6,11 @@ from django.shortcuts import render_to_response
 from django.test import RequestFactory
 from django.test import TestCase
 from home.views import get_index
-from . import views
+from accounts.models import User
 
 
-user = get_user_model()
+User = get_user_model()
+
 
 # checking that users can access the template contact page
 class SimpleTest(TestCase):

@@ -1,5 +1,5 @@
-from django import forms
 from django.contrib.auth.models import AnonymousUser, User
+from accounts.models import User
 from django.contrib.auth import get_user_model
 from django.test import RequestFactory
 from . import views
@@ -8,7 +8,7 @@ from django.shortcuts import render_to_response
 from unittest import TestCase
 
 
-user = get_user_model()
+User = get_user_model()
 
 # checking that users can access the template contact page
 class SimpleTest(TestCase):
@@ -40,7 +40,6 @@ class SimpleTest(TestCase):
 
 # checking that users can add contact details, get error messages when invalid/missing data is submitted
 class CustomContactTest(TestCase):
-
 
     def test_contact_form(self):
         form = ContactForm({
@@ -122,9 +121,3 @@ def test_check_contact_is_correct(self):
         self.assertTemplateUsed(contact_page, "/templates/contact.html")
         contact_page_template_output = render_to_response("templates/contact.html").content
         self.assertEquals(contact_page.content, contact_page_template_output)
-
-
-
-
-
-

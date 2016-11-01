@@ -3,10 +3,11 @@ from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.auth import get_user_model
 from django.shortcuts import render_to_response
 from django.test import RequestFactory
+from accounts.models import User
 from . import views
 
 
-user = get_user_model()
+User = get_user_model()
 # check that status code=200 when user goes to membership page
 def test_membership_page_status_code_is_ok(self):
     home_page = self.client.get('/')
@@ -44,12 +45,3 @@ class SimpleTest(TestCase):
         # Use this syntax for class-based views.
         response = views.all_memberships(request)
         self.assertEqual(response.status_code, 200)
-
-
-
-
-
-
-
-
-

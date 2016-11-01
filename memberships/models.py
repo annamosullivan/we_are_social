@@ -25,4 +25,3 @@ class Membership(models.Model):
         }
 
         return paypal.standard.forms.PayPalPaymentsForm(initial=paypal_dict)
-
