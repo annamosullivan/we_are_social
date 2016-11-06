@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response
 from django.test import RequestFactory
 from accounts.models import User
 from . import views
+from .views import all_memberships
 
 
 User = get_user_model()
