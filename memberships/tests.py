@@ -9,6 +9,8 @@ from .views import all_memberships
 
 
 User = get_user_model()
+
+
 # check that status code=200 when user goes to membership page
 def test_membership_page_status_code_is_ok(self):
     home_page = self.client.get('/')
@@ -46,3 +48,4 @@ class SimpleTest(TestCase):
         # Use this syntax for class-based views.
         response = views.all_memberships(request)
         self.assertEqual(response.status_code, 200)
+
