@@ -29,9 +29,12 @@ def new_thread(request, subject_id):
         post_form = PostForm(request.POST)
         poll_form = PollForm(request.POST)
         poll_subject_formset = poll_subject_formset(request.POST)
-        if thread_form.is_valid() and post_form.is_valid()\
-                and poll_form.is_valid() \
-                and poll_subject_formset.is_valid():
+        is_valid = thread_form.is_valid() and post_form.is_valid()
+        is_a_poll = thread_form.cleaned_data.get('is_a_poll')
+        if is_a_poll:
+            is_valid &= poll_form.is_valid() and poll_subject_formset.is_valid()
+
+        if is_valid:
             thread = thread_form.save(False)
             thread.subject = subject
             thread.user = request.user
@@ -42,14 +45,15 @@ def new_thread(request, subject_id):
             post.thread = thread
             post.save()
 
-            poll = poll_form.save(False)
-            poll.thread = thread
-            poll.save()
+            if is_a_poll:
+                poll = poll_form.save(False)
+                poll.thread = thread
+                poll.save()
 
-            for subject_form in poll_subject_formset:
-                subject = subject_form.save(False)
-                subject.poll = poll
-                subject.save()
+                for subject_form in poll_subject_formset:
+                    subject = subject_form.save(False)
+                    subject.poll = poll
+                    subject.save()
 
             messages.success(request, "You have created a new thread!")
 
@@ -144,7 +148,7 @@ def delete_post(request, post_id):
 
     messages.success(request, "Your post was deleted!")
 
-    return redirect(reverse('forum/thread', args={thread_id}))
+    return redirect(reverse('thread', args={thread_id}))
 
 
 @login_required
@@ -154,14 +158,14 @@ def thread_vote(request, thread_id, subject_id):
 
     if subject:
         messages.error(request, "You already voted on this!... You're not trying to cheat are you?")
-        return redirect(reverse('forum/thread', args={thread_id}))
+        return redirect(reverse('thread', args={thread_id}))
 
     subject = PollSubject.objects.get(id=subject_id)
     subject.votes.create(poll=subject.poll, user=request.user)
 
     messages.success(request, "We've registered your vote!")
 
-    return redirect(reverse('forum/thread', args={thread_id}))
+    return redirect(reverse('thread', args={thread_id}))
 
 
 @register.simple_tag
