@@ -4,7 +4,7 @@ App created using Django, deployed using Heroku
 This is a full stack Social Entrepreneurship membership site that allows for the exchange of ideas that benefit both businesses and society as a whole.
 
 
-KEY COMPONENTS
+##KEY COMPONENTS
 The user stories (and components) involved in interacting with the site are as follows:
 *	A member registers to become part of the site community using an Accounts App
 *	Membership activated and maintained via recurring payments (payments may be used to fund projects) using an Accounts App where users can pay using Stripe and Paypal
@@ -18,7 +18,7 @@ The user stories (and components) involved in interacting with the site are as f
 
 
 
-KEY TECHNOLOGIES
+##KEY TECHNOLOGIES
 These include:
 *	MySQL, sqlite for the database to store user data
 *	AngularJS, HMTL3, CSS3 at the front end
@@ -27,6 +27,14 @@ These include:
 *	Django(Python) for the full stack framework
 * Heroku for deployment
 
-DEVELOPMENT
+##DEVELOPMENT
 SET DJANGO_SETTINGS_MODULE=settings.dev
+
+##DEPLOYMENT IN HEROKU
+Resources link
+* Select ClearDB MySQL for the database support and SendGrid to enable the deployed app to send e-mails from the site to an e-mail address
+Deploy link
+* Enable automatic deploys to the app's Github repository every time a change is made to the code so that these changes are reflected in the live app
+Activity link
+* Use this to monitor whether builds are successful or not
 
