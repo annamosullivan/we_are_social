@@ -31,10 +31,7 @@ These include:
 SET DJANGO_SETTINGS_MODULE=settings.dev
 
 ##DEPLOYMENT IN HEROKU
-Resources link
-* Select ClearDB MySQL for the database support and SendGrid to enable the deployed app to send e-mails from the site to an e-mail address
-Deploy link
-* Enable automatic deploys to the app's Github repository every time a change is made to the code so that these changes are reflected in the live app
-Activity link
-* Use this to monitor whether builds are successful or not
+* Select ClearDB MySQL for the database support and SendGrid to enable the deployed app to send e-mails from the site to an e-mail address in the Resources link
+* Enable automatic deploys to the app's Github repository every time a change is made to the code so that these changes are reflected in the live app in the Deploy link
+* Use this to monitor whether builds are successful or not in the Activity link
 
