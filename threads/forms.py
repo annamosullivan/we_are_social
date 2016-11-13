@@ -1,5 +1,5 @@
 from django import forms
-from .models import Thread, Post, Subject
+from .models import Thread, Posts, Subject
 
 
 class ThreadForm(forms.ModelForm):
@@ -15,6 +15,6 @@ class ThreadForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
 
     class Meta:
-        model = Post
+        model = Posts
         fields = ['comment']
 

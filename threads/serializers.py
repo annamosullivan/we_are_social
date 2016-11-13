@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from .models import Post
+from .models import Posts
 
 
 class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Post
+        model = Posts
         fields = ('id', 'comment',
                   'thread', 'user', 'created_at')
