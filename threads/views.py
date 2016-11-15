@@ -12,7 +12,7 @@ from .forms import ThreadForm, PostForm
 
 
 def forum(request):
-    return render(request, 'forum/forum.html',{'subjects': Subject.objects.all()})
+    return render(request, 'forum/forum.html', {'subjects': Subject.objects.all()})
 
 
 def threads(request, subject_id):
@@ -131,7 +131,7 @@ def edit_post(request, thread_id, post_id):
     args = {
         'form': form,
         'form_action': reverse('edit_post', kwargs={
-                               "thread_id": thread.id, "post_id": post.id}),
+            "thread_id": thread.id, "post_id": post.id}),
         'button_text': 'Update Post'
     }
 
@@ -188,7 +188,7 @@ def user_vote_button(thread, subject, user):
 
 def last_posted_user_name(thread):
     posts = thread.posts.all().order_by('-created_at')
-    return posts[posts.count()-1].user.username
+    return posts[posts.count() - 1].user.username
     if posts == 0:
         return 0
 
@@ -200,3 +200,6 @@ def vote_percentage(subject):
         return 0
     total_votes = subject.poll.votes.count()
     return (100 / total_votes) * count
+
+
+
