@@ -22,6 +22,7 @@
                             </td>
                             <td>{{ thread.user.username }}</td>
                             <td>{{ last_posted_user_name.thread }}</td>
+                            <td>{{ thread.post }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -58,7 +59,7 @@
        </div>
    </div>
    <div class="container">
-       {% for post in thread.posts.all %}
+       {% for post in thread.post.all %}
            {% include "forum/post.html" %}
        {% endfor %}
 
