@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load threads_extras %}
+{% load thread_extras %}
 {% load static %}
 {% block content %}
     <div class="row header">
@@ -21,8 +21,8 @@
                                 </time>
                             </td>
                             <td>{{ thread.user.username }}</td>
-                            <td>{{ last_posted_user_name.thread }}</td>
-                            <td>{{ thread.post }}</td>
+                            <td>{{ last_posted_user_name | thread }}</td>
+
                         </tr>
                     </tbody>
                 </table>
@@ -40,7 +40,7 @@
                                <strong>{{ subject.name }}</strong>
                                <span class="pull-right">{{ subject|vote_percentage }}%</span>
                            </div>
-                           {% user_vote_button thread subject user %}
+                           {% user_vote_button.thread.subject.user %}
                         <div class="col-md-10">
                          <div class="progress">
                            <div class="progress-bar progress-bar-info" role="progressbar"
@@ -59,7 +59,7 @@
        </div>
    </div>
    <div class="container">
-       {% for post in thread.post.all %}
+       {% for post in thread.posts.all %}
            {% include "forum/post.html" %}
        {% endfor %}
 

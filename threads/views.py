@@ -130,8 +130,7 @@ def edit_post(request, thread_id, post_id):
 
     args = {
         'form': form,
-        'form_action': reverse('edit_post', kwargs={
-            "thread_id": thread.id, "post_id": post.id}),
+        'form_action': reverse('edit_post', kwargs={"thread_id": thread.id, "post_id": post.id}),
         'button_text': 'Update Post'
     }
 

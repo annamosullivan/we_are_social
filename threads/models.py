@@ -18,7 +18,7 @@ class Thread(models.Model):
     name = models.CharField(max_length=255)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='threads')
     subject = models.ForeignKey(Subject, related_name='threads')
-    created_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(default=timezone.now())
 
 
 class Posts(models.Model):
@@ -26,4 +26,8 @@ class Posts(models.Model):
     thread = models.ForeignKey(Thread, related_name='posts')
     comment = HTMLField(blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='posts')
-    created_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(default=timezone.now())
+    body = models.TextField()
+
+    def __str__(self):
+        return "%s (%s) (%s) (%s)" % (self.thread, self.comment, self.user, self.body)
