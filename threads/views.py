@@ -6,13 +6,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template.context_processors import csrf
 from polls.forms import PollSubjectForm, PollForm
 from polls.models import PollSubject
-from threads.models import Subject, Posts, Thread
+from threads.models import Subject, Post, Thread
 from threads.templatetags.threads_extras import register
 from .forms import ThreadForm, PostForm
 
 
 def forum(request):
-    return render(request, 'forum/forum.html', {'subject': Subject.objects.all()})
+    return render(request, 'forum/forum.html', {'subjects': Subject.objects.all()})
 
 
 def threads(request, subject_id):
@@ -116,7 +116,7 @@ def new_post(request, thread_id):
 @login_required
 def edit_post(request, thread_id, post_id):
     thread = get_object_or_404(Thread, pk=thread_id)
-    post = get_object_or_404(Posts, pk=post_id)
+    post = get_object_or_404(Post, pk=post_id)
 
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
@@ -141,7 +141,7 @@ def edit_post(request, thread_id, post_id):
 
 @login_required
 def delete_post(request, post_id):
-    post = get_object_or_404(Posts, pk=post_id)
+    post = get_object_or_404(Post, pk=post_id)
     thread_id = post.thread.id
     post.delete()
 
