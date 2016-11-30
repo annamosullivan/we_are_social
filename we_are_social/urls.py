@@ -38,7 +38,6 @@ urlpatterns = [
     # Blog URLs
     url(r'^blog/', include('reusable_blog.urls')),
     url(r'^blog/$', home_views.BlogRedirectView.as_view()),
-    url(r'^blog/$', forum_views.thread, name='post_list'),
 
     # Forum URLs
     url(r'^forum/$', forum_views.forum, name='forum'),
