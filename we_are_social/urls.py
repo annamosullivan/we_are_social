@@ -13,7 +13,7 @@ from threads import api_views as thread_api_views
 
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^$', home_views.get_index, name='index'),
     url(r'^polls/', include('polls.urls', namespace="polls")),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
@@ -38,6 +38,7 @@ urlpatterns = [
     # Blog URLs
     url(r'^blog/', include('reusable_blog.urls')),
     url(r'^blog/$', home_views.BlogRedirectView.as_view()),
+    url(r'^blog/$', forum_views.thread, name='post_list'),
 
     # Forum URLs
     url(r'^forum/$', forum_views.forum, name='forum'),

@@ -52,10 +52,6 @@
                    </div>
                </div>
             {% endif %}
-            {% if thread.poll %}
-                {% csrf_token %}
-                {% include 'forum/poll.html' %}
-            {% endif %}
             {% if user.is_authenticated %}
                <p>
                <br>

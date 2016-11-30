@@ -1,6 +1,5 @@
 import datetime
 import json
-
 import arrow
 import stripe
 from accounts.forms import UserRegistrationForm, UserLoginForm
@@ -62,11 +61,9 @@ def register(request):
 def cancel_subscription(request):
     try:
         customer = stripe.Customer.retrieve(request.user.stripe_id)
-
         customer.cancel_subscription(at_period_end=True)
     except Exception, e:
         messages.error(request, e)
-
     return redirect('profile')
 
 
@@ -125,4 +122,4 @@ def login(request):
 def logout(request):
     auth.logout(request)
     messages.success(request, 'You have successfully logged out')
-    return render(request, 'index.html')
+    return redirect(reverse('index'))
