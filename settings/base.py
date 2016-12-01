@@ -6,7 +6,7 @@ from email.utils import formataddr
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_34saw!bco()q8$4(_5iyik-+nmr+u7jrsfywjq)guc9+j%==c',
+SECRET_KEY = '_34saw!bco()q8$4(_5iyik-+nmr+u7jrsfywjq)guc9+j%==c'
 ADMINS = [(
     os.environ.get("ADMIN_NAME", 'admin'),
     os.environ.get("ADMIN_EMAIL", "example@example.com")
@@ -115,13 +115,14 @@ MEDIA_URL = '/media/'
 
 TINYMCE_JS_ROOT = os.path.join(BASE_DIR, "static", "js", "tinymce", "tinymce.min.js")
 
-DATABASES = {
-    'default' : {
-        'ENGINE':'django.db.backends.sqlite3',
-        'NAME':os.path.join(BASE_DIR, 'db.sqlite3'),
-        # dj_database_url.config(default="sqlite:///%s" % os.path.join(BASE_DIR, 'sqlite.db'))
-}
-}
+DATABASES = dj_database_url.config(default="sqlite:///%s" % os.path.join(BASE_DIR, 'sqlite.db'))
+# {
+#     'default' : {
+#         'ENGINE':'django.db.backends.sqlite3',
+#         'NAME':os.path.join(BASE_DIR, 'db.sqlite3'),
+#         #
+# }
+# }
 
 DEFAULT_FROM_EMAIL = formataddr(ADMINS[0])
 REPLY_TO = (
