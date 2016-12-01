@@ -75,20 +75,18 @@ class PollTest(TestCase):
         c = Client()
 
         # Extra parameters to make this a Ajax style request.
-        kwargs = {'HTTP_X_REQUESTED_WITH':'XMLHttpRequest'}
+        kwargs = {'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
 
         # A valid vote
-        response = c.post('/polls/24/', {'choice': '1',}, **kwargs)
+        response = c.post('/polls/24/', {'choice': '1', }, **kwargs)
         # self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, '')
 
         # A invalid vote - choice doesn't exist
-        response = c.post('/polls/1/vote/', {'choice': '10',}, **kwargs)
+        response = c.post('/polls/1/vote/', {'choice': '10', }, **kwargs)
         self.assertEqual(response.status_code, 404)
         # self.assertEqual(response.content, '')
 
         # An invalid vote - poll doesn't exist
-        response = c.post('/polls/2/vote/', {'choice': '1',}, **kwargs)
+        response = c.post('/polls/2/vote/', {'choice': '1', }, **kwargs)
         self.assertEqual(response.status_code, 404)
-
-

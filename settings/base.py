@@ -11,8 +11,8 @@ ADMINS = [(
     os.environ.get("ADMIN_NAME", 'admin'),
     os.environ.get("ADMIN_EMAIL", "example@example.com")
 )]
-ALLOWED_HOSTS = ['wearesocial2016.herokuapp.com','localhost','127.0.0.1']
-SECURE_PROXY_SSL_SERVER=('HTTP_X_FORWARDED_PROTO','https')
+ALLOWED_HOSTS = ['wearesocial2016.herokuapp.com', 'localhost', '127.0.0.1']
+SECURE_PROXY_SSL_SERVER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SITE_ID = 2
 
 # Application definition
@@ -110,19 +110,17 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
-MEDIA_ROOT=os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
 TINYMCE_JS_ROOT = os.path.join(BASE_DIR, "static", "js", "tinymce", "tinymce.min.js")
 
-DATABASES = dj_database_url.config(default="sqlite:///%s" % os.path.join(BASE_DIR, 'sqlite.db'))
-# {
-#     'default' : {
-#         'ENGINE':'django.db.backends.sqlite3',
-#         'NAME':os.path.join(BASE_DIR, 'db.sqlite3'),
-#         #
-# }
-# }
+DATABASES = {
+    'default':
+        #         'ENGINE':'django.db.backends.sqlite3',
+        #         'NAME':os.path.join(BASE_DIR, 'db.sqlite3'),
+        dj_database_url.config(default="sqlite:///%s" % os.path.join(BASE_DIR, 'sqlite.db'))
+}
 
 DEFAULT_FROM_EMAIL = formataddr(ADMINS[0])
 REPLY_TO = (
